@@ -21,7 +21,7 @@ Neben der __.htaccess__ werden weitere Dateien erstellt, die - sofern sie nicht 
 * __Functions.php__ wird im Frontend und Backend geladen. Hier können eigene PHP-Skripte hinterlegt werden.
 
 ## Developer
-Wenn das Addon __developer__ installiert ist, gibt es die Möglichkeit, die Synchronisation der Templates, Module und Actions in den Theme-Ordner umzuleiten. Die Synchronisation kann für jede der drei Gruppen einzeln aktiviert werden.
+Wenn das  __Developer__ Addon installiert ist, gibt es die Möglichkeit, die Synchronisation der Templates, Module und Actions in den Theme-Ordner umzuleiten. Die Synchronisation kann für jede der drei Gruppen einzeln aktiviert werden.
 Wenn die Synchronisation in den Theme-Ordner aktiviert ist, wird die entsprechenden Synchronisation in den Data-Ordner deaktiviert, um das gegenseitige Überschreiben der Daten zu vermeiden. 
 
 ## API
