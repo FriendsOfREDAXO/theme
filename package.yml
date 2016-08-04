@@ -1,0 +1,12 @@
+package: theme
+version: '1.0.0-beta'
+author: Friends Of REDAXO
+supportpage: https://github.com/FriendsOfREDAXO/theme
+
+theme_folder: 'theme'
+
+page:
+    title: translate:name
+    perm: admin
+    subpages:
+        settings: { title: translate:settings }

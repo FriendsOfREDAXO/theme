@@ -1,0 +1,13 @@
+theme_name = Theme
+theme_settings = Settings
+theme_synchronize_templates = Synchronize templates
+theme_synchronize_modules = Synchronize modules
+theme_synchronize_actions = Synchronize actions
+theme_include_be_files = JS/CSS-Dateien im Backend laden
+theme_save = Save Settings
+theme_saved = Settings have been saved.
+theme_error = An error occured.
+theme_set_by_theme = Deactivated by "Theme" addon
+install_folders = Install theme folders
+folders_installed = Theme folders installed.
+folders_not_installed = Theme folders could not be installed.
