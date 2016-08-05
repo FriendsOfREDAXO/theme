@@ -11,14 +11,13 @@ rex_autoload::addDirectory($this->getPath('lib'));
 // Load theme languages
 rex_i18n::addDirectory(theme_path::lang());
 
+// Autoload theme lib
+rex_autoload::addDirectory(theme_path::lib());
+
 // Include Functions.php
 if (file_exists(theme_path::lib('Functions.php'))) {
     include_once(theme_path::lib('Functions.php'));
 }
-
-// Autoload theme lib
-rex_autoload::addDirectory(theme_path::lib());
-
 // Include backend assets
 if (rex::isBackend() && $this->getConfig('include_be_files')) {
     rex_extension::register('PACKAGES_INCLUDED', 'theme_add_backend_assets', rex_extension::LATE);
