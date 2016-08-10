@@ -15,9 +15,14 @@ rex_i18n::addDirectory(theme_path::lang());
 rex_autoload::addDirectory(theme_path::lib());
 
 // Include Functions.php
+if (file_exists(theme_path::lib('functions.php'))) {
+    include_once(theme_path::lib('functions.php'));
+}
+// Fallback
 if (file_exists(theme_path::lib('Functions.php'))) {
     include_once(theme_path::lib('Functions.php'));
 }
+
 // Include backend assets
 if (rex::isBackend() && $this->getConfig('include_be_files')) {
     rex_extension::register('PACKAGES_INCLUDED', 'theme_add_backend_assets', rex_extension::LATE);

@@ -151,7 +151,7 @@ class theme_page_settings extends theme_abstract
                 $status = rex_file::copy($addon->getPath('install/_htaccess'), rex_path::base($theme_folder.'/private/.htaccess'));
             }
             if ($status) {
-                $status = rex_file::copy($addon->getPath('install/Functions.php'), rex_path::base($theme_folder.'/private/lib/Functions.php'));
+                $status = rex_file::copy($addon->getPath('install/functions.php'), rex_path::base($theme_folder.'/private/lib/functions.php'));
             }
 
             // Status
