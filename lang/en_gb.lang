@@ -9,5 +9,5 @@ theme_saved = Settings have been saved.
 theme_error = An error occured.
 theme_set_by_theme = Deactivated by "Theme" addon
 install_folders = Install theme folders
-folders_installed = Theme folders installed.
+folders_installed = Theme folders installed. Existing files were not deleted.
 folders_not_installed = Theme folders could not be installed.

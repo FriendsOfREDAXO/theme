@@ -113,10 +113,10 @@ class theme_page_settings extends theme_abstract
             }
 
             // Public files
-            if ($status) {
+            if ($status && !file_exists(rex_path::base($theme_folder.'/public/assets/backend/backend.js'))) {
                 $status = rex_file::copy($addon->getPath('install/backend.js'), rex_path::base($theme_folder.'/public/assets/backend/backend.js'));
             }
-            if ($status) {
+            if ($status && !file_exists(rex_path::base($theme_folder.'/public/assets/backend/backend.css'))) {
                 $status = rex_file::copy($addon->getPath('install/backend.css'), rex_path::base($theme_folder.'/public/assets/backend/backend.css'));
             }
 
@@ -147,10 +147,10 @@ class theme_page_settings extends theme_abstract
             }
 
             // Private files
-            if ($status) {
+            if ($status && !file_exists(rex_path::base($theme_folder.'/private/.htaccess'))) {
                 $status = rex_file::copy($addon->getPath('install/_htaccess'), rex_path::base($theme_folder.'/private/.htaccess'));
             }
-            if ($status) {
+            if ($status && !file_exists(rex_path::base($theme_folder.'/private/lib/functions.php'))) {
                 $status = rex_file::copy($addon->getPath('install/functions.php'), rex_path::base($theme_folder.'/private/lib/functions.php'));
             }
 
