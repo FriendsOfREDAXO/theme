@@ -75,7 +75,7 @@ class theme_page_settings extends theme_abstract
         // Options
         $options = '
             <div class="btn-group btn-group-xs">
-                <a href="'.rex_url::currentBackendPage().'&theme_install_folders=true" class="btn btn-default">'.rex_i18n::msg('install_folders').'</a>
+                <a href="'.rex_url::currentBackendPage().'&theme_install_folders=true" class="btn btn-default">'.rex_i18n::msg('theme_install_folders').'</a>
             </div>
         ';
 
@@ -156,9 +156,9 @@ class theme_page_settings extends theme_abstract
 
             // Status
             if ($status) {
-                $message = rex_view::success(rex_i18n::msg('folders_installed'));
+                $message = rex_view::success(rex_i18n::msg('theme_folders_installed'));
             } else {
-                $message = rex_view::error(rex_i18n::msg('folders_not_installed'));
+                $message = rex_view::error(rex_i18n::msg('theme_folders_not_installed'));
             }
         }
 
