@@ -47,19 +47,19 @@ Analog rex_path werden absolute Serverpfade zurückgegeben.
 
 ```php
 // Gibt einen Pfad im Ordner "theme" zurück.
-$path = theme_url::base($filename);
+$path = theme_path::base($filename);
 
 // Gibt einen Pfad im Ordner "theme/private/lib" zurück.
-$path = theme_url::lib($filename);
+$path = theme_path::lib($filename);
 
 // Gibt einen Pfad im Ordner "theme/private/lang" zurück.
-$path = theme_url::lang($filename);
+$path = theme_path::lang($filename);
 
 // Gibt einen Pfad im Ordner "theme/private/views" zurück.
-$path = theme_url::views($filename);
+$path = theme_path::views($filename);
 
 // Gibt einen Pfad im Ordner "theme/public/assets" zurück.
-$path = theme_url::assets($filename);
+$path = theme_path::assets($filename);
 
 // $filename ist immer optional.
 ```
