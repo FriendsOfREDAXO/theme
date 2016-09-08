@@ -2,6 +2,8 @@
 
 Redaxo 5 Addon zum Verwalten aller Projektdateien für Frontend und Backend.
 
+![Screenshot](https://raw.githubusercontent.com/FriendsOfREDAXO/theme/assets/theme.png)
+
 ## Ordner
 Nach der Installation kann in auf der __Theme__-Einstellungsseite mit Klick auf den Button __Theme-Ordner installieren__ die Ordner-Struktur erstellt werden. Dabei wird auf Ebene des Ordners __redaxo__ der Ordner __theme__ erstellt.
 
@@ -45,19 +47,19 @@ Analog rex_path werden absolute Serverpfade zurückgegeben.
 
 ```php
 // Gibt einen Pfad im Ordner "theme" zurück.
-$path = theme_url::base($filename);
+$path = theme_path::base($filename);
 
 // Gibt einen Pfad im Ordner "theme/private/lib" zurück.
-$path = theme_url::lib($filename);
+$path = theme_path::lib($filename);
 
 // Gibt einen Pfad im Ordner "theme/private/lang" zurück.
-$path = theme_url::lang($filename);
+$path = theme_path::lang($filename);
 
 // Gibt einen Pfad im Ordner "theme/private/views" zurück.
-$path = theme_url::views($filename);
+$path = theme_path::views($filename);
 
 // Gibt einen Pfad im Ordner "theme/public/assets" zurück.
-$path = theme_url::assets($filename);
+$path = theme_path::assets($filename);
 
 // $filename ist immer optional.
 ```
