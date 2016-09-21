@@ -4,13 +4,9 @@
  *
  * @var rex_addon $this
  */
-?>
+echo rex_view::title(rex_i18n::msg('name'));
 
-<?= rex_view::title($this->i18n('name')); ?>
-
-<?= theme_page_settings::getFormPost(); ?>
-<?= theme_page_settings::install(); ?>
-
-<form action="<?=rex_url::currentBackendPage();?>" method="post">
-    <?= theme_page_settings::getForm(); ?>
-</form>
+if($subpage = rex_be_controller::getCurrentPagePart(2))
+{
+    include rex_be_controller::getCurrentPageObject()->getSubPath();
+}
