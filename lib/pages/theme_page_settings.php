@@ -154,6 +154,9 @@ class theme_page_settings extends theme_abstract
                 $status = rex_file::copy($addon->getPath('install/functions.php'), rex_path::base($theme_folder.'/private/lib/functions.php'));
             }
 
+            // execute a custom extension point
+            rex_extension::registerPoint(new rex_extension_point('THEME_AFTER_FOLDER_INSTALLATION', '', ['status' => &$status, 'theme_folder' => $theme_folder]));
+
             // Status
             if ($status) {
                 $message = rex_view::success(rex_i18n::msg('theme_folders_installed'));
