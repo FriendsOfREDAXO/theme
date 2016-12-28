@@ -14,13 +14,20 @@ rex_i18n::addDirectory(theme_path::lang());
 // Autoload theme lib
 rex_autoload::addDirectory(theme_path::lib());
 
-// Include Functions.php
-if (file_exists(theme_path::lib('functions.php'))) {
-    include_once(theme_path::lib('functions.php'));
+// Include files
+if (is_dir(theme_path::base('private/inc'))) {
+    foreach (glob(theme_path::base('private/inc/*.php')) as $file) {
+        include_once($file);
+    }
 }
-// Fallback
-if (file_exists(theme_path::lib('Functions.php'))) {
-    include_once(theme_path::lib('Functions.php'));
+// Fallbacks
+else {
+    if (file_exists(theme_path::lib('functions.php'))) {
+        include_once(theme_path::lib('functions.php'));
+    }
+    if (file_exists(theme_path::lib('Functions.php'))) {
+        include_once(theme_path::lib('Functions.php'));
+    }
 }
 
 // Include backend assets

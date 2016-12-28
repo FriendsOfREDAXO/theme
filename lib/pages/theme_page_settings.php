@@ -131,6 +131,9 @@ class theme_page_settings extends theme_abstract
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/lib'));
             }
             if ($status) {
+                $status = rex_dir::create(rex_path::base($theme_folder.'/private/inc'));
+            }
+            if ($status) {
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/redaxo'));
             }
             if ($status) {
@@ -150,12 +153,9 @@ class theme_page_settings extends theme_abstract
             if ($status && !file_exists(rex_path::base($theme_folder.'/private/.htaccess'))) {
                 $status = rex_file::copy($addon->getPath('install/_htaccess'), rex_path::base($theme_folder.'/private/.htaccess'));
             }
-            if ($status && !file_exists(rex_path::base($theme_folder.'/private/lib/functions.php'))) {
-                $status = rex_file::copy($addon->getPath('install/functions.php'), rex_path::base($theme_folder.'/private/lib/functions.php'));
+            if ($status && !file_exists(rex_path::base($theme_folder.'/private/inc/functions.php'))) {
+                $status = rex_file::copy($addon->getPath('install/functions.php'), rex_path::base($theme_folder.'/private/inc/functions.php'));
             }
-
-            // execute a custom extension point
-            rex_extension::registerPoint(new rex_extension_point('THEME_AFTER_FOLDER_INSTALLATION', '', ['status' => &$status, 'theme_folder' => $theme_folder]));
 
             // Status
             if ($status) {
