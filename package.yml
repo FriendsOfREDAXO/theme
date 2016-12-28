@@ -10,3 +10,4 @@ page:
     perm: admin
     subpages:
         settings: { title: translate:settings }
+        info: { title: translate:info }
