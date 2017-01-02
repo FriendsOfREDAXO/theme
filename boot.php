@@ -5,9 +5,6 @@
  * @var rex_addon $this
  */
 
-// Autoload addon classes
-rex_autoload::addDirectory($this->getPath('lib'));
-
 // Load theme languages
 rex_i18n::addDirectory(theme_path::lang());
 
@@ -15,18 +12,18 @@ rex_i18n::addDirectory(theme_path::lang());
 rex_autoload::addDirectory(theme_path::lib());
 
 // Include files
-if (is_dir(theme_path::base('private/inc'))) {
-    foreach (glob(theme_path::base('private/inc/*.php')) as $file) {
-        include_once($file);
+if (is_dir(theme_path::inc())) {
+    foreach (glob(theme_path::inc('*.php')) as $file) {
+        include_once ($file);
     }
 }
 // Fallbacks
 else {
     if (file_exists(theme_path::lib('functions.php'))) {
-        include_once(theme_path::lib('functions.php'));
+        include_once (theme_path::lib('functions.php'));
     }
     if (file_exists(theme_path::lib('Functions.php'))) {
-        include_once(theme_path::lib('Functions.php'));
+        include_once (theme_path::lib('Functions.php'));
     }
 }
 
