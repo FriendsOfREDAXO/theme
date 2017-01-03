@@ -1,7 +1,7 @@
 <?php
 /**
- * @author Daniel Weitenauer
- * @copyright (c) 2014-2016 studio ahoi
+ * Theme
+ *
  * @var rex_addon $this
  */
 

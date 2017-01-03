@@ -28,6 +28,17 @@ class theme_path extends theme_abstract
     }
 
     /**
+     * Return inc path
+     *
+     * @param string $filename Optional filename
+     * @return string Path
+     */
+    public static function inc($filename = '')
+    {
+        return self::base('private/inc'.self::separator($filename));
+    }
+
+    /**
      * Return lang path
      *
      * @param string $filename Optional filename

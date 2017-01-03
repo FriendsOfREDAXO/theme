@@ -1,5 +1,6 @@
 theme_name = Theme
 theme_settings = Settings
+theme_info = Info
 theme_synchronize_templates = Synchronize templates
 theme_synchronize_modules = Synchronize modules
 theme_synchronize_actions = Synchronize actions

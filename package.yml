@@ -1,5 +1,5 @@
 package: theme
-version: '1.0.1-beta2'
+version: '1.0.1-RC'
 author: Friends Of REDAXO
 supportpage: https://github.com/FriendsOfREDAXO/theme
 
@@ -10,3 +10,4 @@ page:
     perm: admin
     subpages:
         settings: { title: translate:settings }
+        info: { title: translate:info }
