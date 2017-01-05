@@ -13,14 +13,15 @@ Er enthält zwei weitere Ordner: __public__ und __private__:
 
 Die weiteren Unterordner sind ein Vorschlag für die Strukturierung der Projektdateien. Jede andere Variante ist auch möglich. 
 Die vorgegebene Struktur hat den Vorteil, dass diese Ordner über PHP-Methoden einfach ansprechbar sind *(siehe unten)*, bzw. automatisch eingebunden werden:
-* Der Ordner __lib__ wird über __autoload__ eingebunden.
-* Der Ordner __lang__ wird über __i18n__ eingebunden
+* Der Ordner __lib__ wird automatisch über __autoload__ eingebunden.
+* Der Ordner __lang__ wird automatisch über __i18n__ eingebunden.
+* Alle Dateien mit der Endung __.php__ im Ordner __inc__ werden per __include_once__ in der __boot.php__ des Addons eingebunden.
 * Der Ordner __redaxo__ ist ein Platzhalter für die Synchronisierungsdaten vom __Developer__ Addon *(siehe unten)*.
 
 ## Dateien
 Neben der __.htaccess__ werden weitere Dateien erstellt, die - sofern sie nicht gelöscht wurden - vom Addon automatisch eingebunden werden:
-* __backend.css__ und __backend.js__ werden auf jeder Seite des Redaxo-Backends geladen. So können auf einfache Weise zusätzliche Scripte, Stile oder Webfonts für das Projekt eingebunden werden. Diese Funktion kann in den Einstellungen deaktiviert werden.
-* __Functions.php__ wird im Frontend und Backend geladen. Hier können eigene PHP-Skripte hinterlegt werden.
+* __backend.css__ und __backend.js__ werden auf jeder Seite des Redaxo-Backends geladen. So können auf einfache Weise zusätzliche Scripte, Stile oder Webfonts für das Projekt eingebunden werden. Diese Funktion kann in den Einstellungen aktiviert oder deaktiviert werden.
+* __functions.php__ wird im Ordner __inc__ angelegt *(siehe oben)* und dient nur als schnelle Starthilfe. Sie kann auch umbenannt, gelöscht oder durch andere Dateien ersetzt werden.
 
 ## Developer
 Wenn das  __Developer__ Addon installiert ist, gibt es die Möglichkeit, die Synchronisation der Templates, Module und Actions in den Theme-Ordner umzuleiten. Die Synchronisation kann für jede der drei Gruppen einzeln aktiviert werden.
@@ -52,6 +53,9 @@ $path = theme_path::base($filename);
 // Gibt einen Pfad im Ordner "theme/private/lib" zurück.
 $path = theme_path::lib($filename);
 
+// Gibt einen Pfad im Ordner "theme/private/inc" zurück.
+$path = theme_path::inc($filename);
+
 // Gibt einen Pfad im Ordner "theme/private/lang" zurück.
 $path = theme_path::lang($filename);
 
@@ -66,7 +70,7 @@ $path = theme_path::assets($filename);
 
 ### theme_setting
 Eine einfache Registry mit der Möglichkeit beim Abruf Default-Werte zu definieren. Sie soll die Übergabe von Daten erleichtern. 
-So ist es möglich, über "Functions.php" Modulen und Templates projektspezifische Einstellungen zu übergeben, z.B. können einem generischen Bildmodul je nach Kategorie oder Spaltenposition verschiedene Bildtypen übergeben werden.
+So ist es möglich, über "functions.php" Modulen und Templates projektspezifische Einstellungen zu übergeben, z.B. können einem generischen Bildmodul je nach Kategorie oder Spaltenposition verschiedene Bildtypen übergeben werden.
 
 ```php
 // Erstellt einen Eintrag. Die Daten müssen immer als alphanumerisches Array übergeben werden. 
