@@ -70,7 +70,7 @@ $path = theme_path::assets($filename);
 
 ### theme_setting
 Eine einfache Registry mit der Möglichkeit beim Abruf Default-Werte zu definieren. Sie soll die Übergabe von Daten erleichtern. 
-So ist es möglich, über "functions.php" Modulen und Templates projektspezifische Einstellungen zu übergeben, z.B. können einem generischen Bildmodul je nach Kategorie oder Spaltenposition verschiedene Bildtypen übergeben werden.
+So ist es möglich, über z.B. __functions.php__ Modulen und Templates Einstellungen zu übergeben, z.B. können einem generischen Bildmodul je nach Kategorie oder Spaltenposition verschiedene Bildtypen übergeben werden.
 
 ```php
 // Erstellt einen Eintrag. Die Daten müssen immer als alphanumerisches Array übergeben werden. 
