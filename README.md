@@ -5,7 +5,7 @@ Redaxo 5 Addon zum Verwalten aller Projektdateien für Frontend und Backend.
 ![Screenshot](https://raw.githubusercontent.com/FriendsOfREDAXO/theme/assets/theme.png)
 
 ## Ordner
-Nach der Installation kann in auf der __Theme__-Einstellungsseite mit Klick auf den Button __Theme-Ordner installieren__ die Ordner-Struktur erstellt werden. Dabei wird auf Ebene des Ordners __redaxo__ der Ordner __theme__ erstellt.
+Nach der Installation kann auf der __Theme__-Einstellungsseite mit Klick auf den Button __Theme-Ordner installieren__ die Ordner-Struktur erstellt werden. Dabei wird auf Ebene des Ordners __redaxo__ der Ordner __theme__ erstellt.
 
 Er enthält zwei weitere Ordner: __public__ und __private__: 
 * Im Ordner __public__ können alle öffentlich zugänglichen Dateien, wie JavaScript und CSS hinterlegt werden. 
