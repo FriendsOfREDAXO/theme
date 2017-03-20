@@ -9,7 +9,10 @@ $parsedown = new Parsedown();
 $content = $parsedown->text($file);
 
 $fragment = new rex_fragment();
+$fragment->setVar('content', $content, false);
+$content = $fragment->parse('core/page/docs.php');
+
+$fragment = new rex_fragment();
 $fragment->setVar('title', $this->i18n('info'));
 $fragment->setVar('body', $content, false);
-
 echo $fragment->parse('core/page/section.php');
