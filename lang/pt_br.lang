@@ -1,0 +1,14 @@
+theme_name = Tema
+theme_settings = Configurações
+theme_info = Info
+theme_synchronize_templates = Sincronizar Templates
+theme_synchronize_modules = Sincronizar módulos
+theme_synchronize_actions = Sincronizar açoes
+theme_include_be_files = Carregar arquivos JS/CSS no backend
+theme_save = Salvar configurações
+theme_saved = Configurações foram salvas.
+theme_error = Ocorreu um erro.
+theme_set_by_theme = Desativado pelo "Tema" Addon
+theme_install_folders = Instalar pasta de Tema
+theme_folders_installed = A pasta de tema foi instalada. Arquivos já existentes não foram modificados/deletados
+theme_folders_not_installed = Pasta de Tema não pôde ser instalada.
