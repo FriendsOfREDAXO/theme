@@ -131,6 +131,21 @@ class theme_page_settings extends theme_abstract
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/lib'));
             }
             if ($status) {
+                $status = rex_dir::create(rex_path::base($theme_folder.'/private/lib/yform'));
+            }
+            if ($status) {
+                $status = rex_dir::create(rex_path::base($theme_folder.'/private/lib/yform/action'));
+            }
+            if ($status) {
+                $status = rex_dir::create(rex_path::base($theme_folder.'/private/lib/yform/validate'));
+            }
+            if ($status) {
+                $status = rex_dir::create(rex_path::base($theme_folder.'/private/lib/yform/value'));
+            }
+            if ($status) {
+                $status = rex_dir::create(rex_path::base($theme_folder.'/private/lib/ytemplates'));
+            }
+            if ($status) {
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/inc'));
             }
             if ($status) {
@@ -148,6 +163,9 @@ class theme_page_settings extends theme_abstract
             if ($status) {
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/views'));
             }
+            if ($status) {
+                $status = rex_dir::create(rex_path::base($theme_folder.'/private/fragments'));
+            }
 
             // Private files
             if ($status && !file_exists(rex_path::base($theme_folder.'/private/.htaccess'))) {
@@ -155,6 +173,9 @@ class theme_page_settings extends theme_abstract
             }
             if ($status && !file_exists(rex_path::base($theme_folder.'/private/inc/functions.php'))) {
                 $status = rex_file::copy($addon->getPath('install/functions.php'), rex_path::base($theme_folder.'/private/inc/functions.php'));
+            }
+            if ($status && !file_exists(rex_path::base($theme_folder.'/private/inc/extension_points.php'))) {
+                $status = rex_file::copy($addon->getPath('install/extension_points.php'), rex_path::base($theme_folder.'/private/inc/extension_points.php'));
             }
 
             // Status
