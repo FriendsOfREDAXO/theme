@@ -17,15 +17,6 @@ if (is_dir(theme_path::inc())) {
         include_once ($file);
     }
 }
-// Fallbacks
-else {
-    if (file_exists(theme_path::lib('functions.php'))) {
-        include_once (theme_path::lib('functions.php'));
-    }
-    if (file_exists(theme_path::lib('Functions.php'))) {
-        include_once (theme_path::lib('Functions.php'));
-    }
-}
 
 // Include backend assets
 if (rex::isBackend() && $this->getConfig('include_be_files')) {
