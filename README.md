@@ -2,8 +2,6 @@
 
 Redaxo 5 Addon zum Verwalten aller Projektdateien für Frontend und Backend.
 
-![Screenshot](https://raw.githubusercontent.com/FriendsOfREDAXO/theme/assets/theme.png)
-
 ## Ordner
 Nach der Installation kann auf der __Theme__-Einstellungsseite mit Klick auf den Button __Theme-Ordner installieren__ eine Ordner-Struktur erstellt werden. Dabei wird auf Ebene des Ordners __redaxo__ der Ordner __theme__ erstellt.
 
