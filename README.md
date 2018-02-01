@@ -75,7 +75,8 @@ So ist es möglich, über z.B. __functions.php__ Modulen und Templates Einstellu
 
 ```php
 // Erstellt einen Eintrag. Die Daten müssen immer als alphanumerisches Array übergeben werden. 
-// Wird die Methode mehrfach mit dem gleichen Schlüssel aufgerufen, werden die Daten über array_merge zusammengeführt.
+// Wird die Methode mehrfach mit dem gleichen Schlüssel aufgerufen, 
+// werden die Daten über array_merge zusammengeführt.
 theme_setting::setKey($key, [
     'index1' => 'data1', 
     'index2' => 'data2', 
@@ -84,7 +85,8 @@ theme_setting::setKey($key, [
 
 // Holt einen Eintrag. Dabei kann ein Array mit Vorgabe-Werten übergeben werden.
 // Die Arrays werden über array_merge() zusammengeführt. 
-// Ist ein Schlüssel in beiden Arrays vorhanden, wird der des Default-Arrays mit denen des ausgelesenen Arrays überschrieben.
+// Ist ein Schlüssel in beiden Arrays vorhanden, wird der des Default-Arrays 
+// mit denen des ausgelesenen Arrays überschrieben.
 theme_setting::getKey($key, [
     'index1' => 'data1', 
     'index2' => 'data2', 
