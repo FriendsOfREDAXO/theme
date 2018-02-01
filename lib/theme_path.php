@@ -54,10 +54,22 @@ class theme_path extends theme_abstract
      *
      * @param string $filename Optional filename
      * @return string Path
+     * @deprecated in favor of method fragments
      */
     public static function views($filename = '')
     {
         return self::base('private/views'.self::separator($filename));
+    }
+
+    /**
+     * Return fragments path
+     *
+     * @param string $filename Optional filename
+     * @return string Path
+     */
+    public static function fragments($filename = '')
+    {
+        return self::base('private/fragments'.self::separator($filename));
     }
 
     /**
