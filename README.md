@@ -14,6 +14,8 @@ Die vorgegebene Struktur hat den Vorteil, dass diese Ordner über PHP-Methoden e
 * Alle im Ordner __lib__ enthaltenen PHP-Klassen werden automatisch über __autoload__ eingebunden.
 * Alle im Ordner __lang__ enthaltenen Dateien mit der Endung __.lang__ werden automatisch über __i18n__ eingebunden.
 * Alle Dateien mit der Endung __.php__ im Ordner __inc__ werden per __include_once__ in der __boot.php__ des Addons eingebunden.
+* Der Ordner __fragments__ wird über __rex_fragment::addDirectory__ eingebunden.
+* Der Ordner __ytemplates__ wird über __rex_yform::addTemplatePath__ eingebunden, wenn __YForm__ installiert ist.
 * Der Ordner __redaxo__ ist ein Platzhalter für die Synchronisierungsdaten vom __Developer__ Addon *(siehe unten)*.
 
 ## Dateien
@@ -64,6 +66,9 @@ $path = theme_path::lang($filename);
 
 // Gibt einen Pfad im Ordner "theme/private/fragments" zurück.
 $path = theme_path::fragments($filename);
+
+// Gibt einen Pfad im Ordner "theme/private/ytemplates" zurück.
+$path = theme_path::ytemplates($filename);
 
 // Gibt einen Pfad im Ordner "theme/public/assets" zurück.
 $path = theme_path::assets($filename);
