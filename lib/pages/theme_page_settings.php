@@ -143,7 +143,7 @@ class theme_page_settings extends theme_abstract
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/lib/yform/value'));
             }
             if ($status) {
-                $status = rex_dir::create(rex_path::base($theme_folder.'/private/lib/ytemplates'));
+                $status = rex_dir::create(rex_path::base($theme_folder.'/private/ytemplates'));
             }
             if ($status) {
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/inc'));
