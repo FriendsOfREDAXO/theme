@@ -20,11 +20,11 @@ Die vorgegebene Struktur hat den Vorteil, dass diese Ordner über PHP-Methoden e
 
 ## Dateien
 Neben der __.htaccess__ werden weitere Dateien erstellt, die - sofern sie nicht gelöscht wurden - vom Addon automatisch eingebunden werden:
-* __backend.css__ und __backend.js__ werden auf jeder Seite des Redaxo-Backends geladen. So können auf einfache Weise zusätzliche Scripte, Stile oder Webfonts für das Backend eingebunden werden. Diese Funktion kann in den Einstellungen aktiviert oder deaktiviert werden.
+* __backend.css__ und __backend.js__ werden auf jeder Seite des Redaxo-Backends geladen. So können auf einfache Weise zusätzliche Scripte, Stile oder Webfonts für das Backend eingebunden werden. Diese Funktion kann in den Einstellungen des Theme-Addons aktiviert oder deaktiviert werden.
 * __functions.php__ wird im Ordner __inc__ angelegt *(siehe oben)* und dient nur als schnelle Starthilfe. Sie kann auch umbenannt, gelöscht oder durch andere Dateien ersetzt werden.
 
 ## Developer
-Wenn das  __Developer__ Addon installiert ist, gibt es die Möglichkeit, die Synchronisierung der Templates, Module und Actions in den Theme-Ordner umzuleiten. Die Synchronisierung kann für jede der drei Gruppen einzeln aktiviert werden.
+Wenn das  __Developer__ Addon installiert ist, gibt es über zusätzliche Optionen in den Einstellungen des Theme-Addons die Möglichkeit, die Synchronisierung der Templates, Module und Actions in den Theme-Ordner umzuleiten. Die Synchronisierung kann für jede der drei Gruppen einzeln aktiviert werden.
 Wenn die Synchronisierung in den Theme-Ordner aktiviert ist, wird die entsprechenden Synchronisierung in den Data-Ordner deaktiviert, um das gegenseitige Überschreiben der Daten zu vermeiden. 
 
 ## API
