@@ -171,9 +171,6 @@ class theme_page_settings extends theme_abstract
             if ($status && !file_exists(rex_path::base($theme_folder.'/private/inc/functions.php'))) {
                 $status = rex_file::copy($addon->getPath('install/functions.php'), rex_path::base($theme_folder.'/private/inc/functions.php'));
             }
-            if ($status && !file_exists(rex_path::base($theme_folder.'/private/inc/extension_points.php'))) {
-                $status = rex_file::copy($addon->getPath('install/extension_points.php'), rex_path::base($theme_folder.'/private/inc/extension_points.php'));
-            }
 
             // Status
             if ($status) {
