@@ -18,6 +18,14 @@ if (is_dir(theme_path::inc())) {
     }
 }
 
+// Register fragment folder
+rex_fragment::addDirectory(theme_path::fragments());
+
+// Register YForm templates
+if (rex_addon::get('yform')->isAvailable()) {
+    rex_yform::addTemplatePath(theme_path::ytemplates());
+}
+
 // Include backend assets
 if (rex::isBackend() && $this->getConfig('include_be_files')) {
     rex_extension::register('PACKAGES_INCLUDED', 'theme_add_backend_assets', rex_extension::LATE);

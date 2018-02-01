@@ -73,6 +73,17 @@ class theme_path extends theme_abstract
     }
 
     /**
+     * Return ytemplates path
+     *
+     * @param string $filename Optional filename
+     * @return string Path
+     */
+    public static function ytemplates($filename = '')
+    {
+        return self::base('private/ytemplates'.self::separator($filename));
+    }
+
+    /**
      * Return assets url
      *
      * @param string $filename Optional filename
