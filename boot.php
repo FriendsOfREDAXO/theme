@@ -18,6 +18,11 @@ if (is_dir(theme_path::inc())) {
     }
 }
 
+// Deprecated fallback warning
+rex_extension::register('PAGE_STRUCTURE_HEADER', function() {
+    return theme_util::getFunctionsPhpMessage();
+});
+
 // Register fragment folder
 rex_fragment::addDirectory(theme_path::fragments());
 

@@ -12,3 +12,4 @@ theme_set_by_theme = Deactivated by "Theme" addon
 theme_install_folders = Install Theme folder
 theme_folders_installed = Theme folder has been installed. Existing files have not been deleted/modified.
 theme_folders_not_installed = Theme folder could not be installed.
+theme_functionsphp_in_lib_folder_is_deprecated = <strong>Theme Addon:</strong> The file <strong>functions.php</strong> in folder <strong>lib</strong> is not included automatically anymore. Please move it into the folder <strong>inc</strong>.
