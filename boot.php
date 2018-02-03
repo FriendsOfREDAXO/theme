@@ -23,13 +23,14 @@ rex_extension::register('PAGE_STRUCTURE_HEADER', function() {
     return theme_util::getFunctionsPhpMessage();
 });
 
-// Register fragment folder
-rex_fragment::addDirectory(theme_path::fragments());
-
-// Register YForm templates
-if (rex_addon::get('yform')->isAvailable()) {
-    rex_yform::addTemplatePath(theme_path::ytemplates());
-}
+rex_extension::register('PACKAGES_INCLUDED', function () {
+    // Register fragment folder
+    rex_fragment::addDirectory(theme_path::fragments());
+    // Register YForm templates
+    if (rex_addon::get('yform')->isAvailable()) {
+        rex_yform::addTemplatePath(theme_path::ytemplates());
+    }
+}, rex_extension::LATE);
 
 // Include backend assets
 if (rex::isBackend() && $this->getConfig('include_be_files')) {
