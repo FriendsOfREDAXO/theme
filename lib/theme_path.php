@@ -54,7 +54,6 @@ class theme_path extends theme_abstract
      *
      * @param string $filename Optional filename
      * @return string Path
-     * @deprecated in favor of method fragments
      */
     public static function views($filename = '')
     {
