@@ -12,3 +12,4 @@ theme_set_by_theme = Deaktiverad av addon "Theme".
 theme_install_folders = Installera Theme-mappen
 theme_folders_installed = Theme-mappar har installerats. Eventuella redan existerande filer raderades inte.
 theme_folders_not_installed = Theme-mappen kunde inte installeras.
+theme_functionsphp_in_lib_folder_is_deprecated = <strong> Tema Addon: </ strong> Filen <strong> functions.php </ strong> ingår inte längre automatiskt i mappen <strong> lib </ strong>. Vänligen gå till mappen <strong> inc </ strong>.
