@@ -1,0 +1,15 @@
+theme_name = Tema
+theme_settings = Ajustes
+theme_info = Info
+theme_synchronize_templates = Sincronizar plantillas
+theme_synchronize_modules = Sincronizar módulos
+theme_synchronize_actions = Sincronizar acciones
+theme_include_be_files = Carga archivos JS/CSS en el backend
+theme_save = Guardar ajustes
+theme_saved = La configuración ha sido guardada.
+theme_error = Se produjo un error.
+theme_set_by_theme = Desactivado por el AddOn "Tema".
+theme_install_folders = Instalar la carpeta Tema
+theme_folders_installed = La carpeta del tema ha sido instalada. Los archivos existentes no han sido eliminados/modificados.
+theme_folders_not_installed = La carpeta del tema no se pudo instalar.
+theme_functionsphp_in_lib_folder_is_deprecated = <strong>AddOn del tema:</strong> el archivo <strong>functions.php</strong> en la carpeta <strong>lib</strong> ya no se incluye automáticamente. Por favor, muévalo a la carpeta <strong>inc</strong>.
