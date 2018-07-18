@@ -11,3 +11,6 @@ page:
     subpages:
         settings: { title: translate:settings }
         info: { title: translate:info }
+
+requires:
+    redaxo: '>=5.1.0'
