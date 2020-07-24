@@ -21,6 +21,7 @@ class theme_page_settings extends theme_abstract
                 ['synchronize_actions', 'bool'],
                 ['synchronize_modules', 'bool'],
                 ['synchronize_templates', 'bool'],
+                ['synchronize_yformemails', 'bool'],
             ]));
 
             $message = rex_view::success($addon->i18n('saved'));
@@ -50,6 +51,10 @@ class theme_page_settings extends theme_abstract
             $checkbox_elements[] = [
                 'label' => '<label for="theme-synchronize-actions">'.$addon->i18n('synchronize_actions').'</label>',
                 'field' => '<input type="checkbox" id="theme-synchronize-actions" name="config[synchronize_actions]" value="1" '.($addon->getConfig('synchronize_actions') ? ' checked="checked"' : '').' />'
+            ];
+            $checkbox_elements[] = [
+                'label' => '<label for="theme-synchronize-yformemails">'.$addon->i18n('synchronize_yformemails').'</label>',
+                'field' => '<input type="checkbox" id="theme-synchronize-yformemails" name="config[synchronize_yformemails]" value="1" '.($addon->getConfig('synchronize_yformemails') ? ' checked="checked"' : '').' />'
             ];
         }
         $checkbox_elements[] = [
@@ -160,6 +165,9 @@ class theme_page_settings extends theme_abstract
             if ($status) {
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/redaxo/templates'));
             }
+            if ($status) {
+                $status = rex_dir::create(rex_path::base($theme_folder.'/private/redaxo/yform_emails'));
+            }            
             if ($status) {
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/fragments'));
             }
