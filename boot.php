@@ -71,7 +71,7 @@ function theme_deactivate_developer_checkboxes(rex_extension_point $ep)
     <script type="text/javascript">
         jQuery("document").ready(function() {
             if (jQuery("body").attr("id") == "rex-page-developer-settings") {
-                var $yformemails = jQuery("#rex-developer-yformemails");
+                var $yformemails = jQuery("#rex-developer-yform-email");
                 var $templates = jQuery("#rex-developer-templates");
                 var $modules = jQuery("#rex-developer-modules");
                 var $actions = jQuery("#rex-developer-actions");
