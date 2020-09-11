@@ -49,6 +49,7 @@ if (rex_addon::get('developer')->isAvailable()) {
         'synchronize_actions' => $this->getConfig('synchronize_actions'),
         'synchronize_modules' => $this->getConfig('synchronize_modules'),
         'synchronize_templates' => $this->getConfig('synchronize_templates'),
+        'synchronize_yformemails' => $this->getConfig('synchronize_yformemails'),
     ]);
 }
 
@@ -70,10 +71,14 @@ function theme_deactivate_developer_checkboxes(rex_extension_point $ep)
     <script type="text/javascript">
         jQuery("document").ready(function() {
             if (jQuery("body").attr("id") == "rex-page-developer-settings") {
+                var $yformemails = jQuery("#rex-developer-yform-email");
                 var $templates = jQuery("#rex-developer-templates");
                 var $modules = jQuery("#rex-developer-modules");
                 var $actions = jQuery("#rex-developer-actions");
-                
+
+                if ('.($addon->getConfig('synchronize_yformemails') ? '1' : '0').') {
+                    $yformemails.prop("disabled", "disabled").parent().append(" ['.$addon->i18n('set_by_theme').']");
+                }
                 if ('.($addon->getConfig('synchronize_templates') ? '1' : '0').') {
                     $templates.prop("disabled", "disabled").parent().append(" ['.$addon->i18n('set_by_theme').']");
                 }

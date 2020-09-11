@@ -12,5 +12,6 @@ if (!$this->hasConfig()) {
         'synchronize_actions' => false,
         'synchronize_modules' => false,
         'synchronize_templates' => false,
+        'synchronize_yformemails' => false,
     ]);
 }

@@ -19,6 +19,9 @@ class theme_manager
         if ($ep->getParam('synchronize_actions')) {
             rex_addon::get('developer')->setConfig('actions', false);
         }
+        if ($ep->getParam('synchronize_yformemails')) {
+            rex_addon::get('developer')->setConfig('yform_email', false);
+        }
 
         // Register own directories
         self::register($ep);
@@ -37,6 +40,23 @@ class theme_manager
         $page = rex_be_controller::getCurrentPage();
         $function = rex_request('function', 'string', '');
         $save = rex_request('save', 'string', '');
+
+        if ($ep->getParam('synchronize_yformemails')) {
+            $yformEmail = rex_plugin::get('yform', 'email');
+            if ($yformEmail->isAvailable() && rex_string::versionCompare($yformEmail->getVersion(), '3.4b1', '>=')) {
+                $synchronizer = new theme_synchronizer(
+                    $theme_folder.'/private/redaxo/yform_emails',
+                    rex::getTable('yform_email_template'),
+                    array('body' => 'body.php', 'body_html' => 'body_html.php'),
+                    array('mail_from' => 'string', 'mail_from_name' => 'string', 'mail_reply_to' => 'string', 'mail_reply_to_name' => 'string', 'subject' => 'string', 'attachments' => 'string')
+                );
+                $synchronizer->setCommonCreateUpdateColumns(false);
+                rex_developer_manager::register(
+                    $synchronizer,
+                    $page == 'yform/email/index' && ($function == 'add' || $function == 'edit' || $function == 'delete')
+                );
+            }
+        }
 
         if ($ep->getParam('synchronize_templates')) {
             $synchronizer = new theme_synchronizer(
