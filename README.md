@@ -24,7 +24,7 @@ Neben der __.htaccess__ werden weitere Dateien erstellt, die - sofern sie nicht 
 * __functions.php__ wird im Ordner __inc__ angelegt *(siehe oben)* und dient nur als schnelle Starthilfe. Sie kann auch umbenannt, gelöscht oder durch andere Dateien ersetzt werden.
 
 ## Developer
-Wenn das  __Developer__ Addon installiert ist, gibt es über zusätzliche Optionen in den Einstellungen des Theme-Addons die Möglichkeit, die Synchronisierung der Templates, Module und Actions in den Theme-Ordner umzuleiten. Die Synchronisierung kann für jede der drei Gruppen einzeln aktiviert werden.
+Wenn das  __Developer__ Addon installiert ist, gibt es über zusätzliche Optionen in den Einstellungen des Theme-Addons die Möglichkeit, die Synchronisierung der Templates, Module, Actions und YForm E-Mail Templates in den Theme-Ordner umzuleiten. Die Synchronisierung kann für jede der drei Gruppen einzeln aktiviert werden.
 Wenn die Synchronisierung in den Theme-Ordner aktiviert ist, wird die entsprechenden Synchronisierung in den Data-Ordner deaktiviert, um das gegenseitige Überschreiben der Daten zu vermeiden. 
 
 ## API
