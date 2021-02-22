@@ -4,7 +4,7 @@ rex_extension::register('PACKAGES_INCLUDED', function () {
     /*if (rex_addon::get('yrewrite')->isAvailable()) {
         rex_yrewrite::setScheme(new my_rewrite_scheme());
     }*/
-}, 'LATE');
+}, rex_extension::LATE);
 
 
 
