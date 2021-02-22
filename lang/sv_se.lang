@@ -1,6 +1,7 @@
 theme_name = Theme
 theme_settings = Inställningar
 theme_info = Info
+theme_synchronize_yformemails = YForm: Synkronisera E-post mallar
 theme_synchronize_templates = Synkronisera mallar
 theme_synchronize_modules = Synkronisera moduler
 theme_synchronize_actions = Synkronisera aktioner
