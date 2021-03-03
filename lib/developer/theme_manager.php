@@ -38,7 +38,9 @@ class theme_manager
         $theme_folder = $ep->getParam('theme_folder');
 
         $page = rex_be_controller::getCurrentPage();
-        $function = rex_request('function', 'string', '');
+        // workaround for https://github.com/redaxo/redaxo/issues/2900
+        $function = rex_request('function', '', null);
+        $function = is_string($function) ? $function : null;
         $save = rex_request('save', 'string', '');
 
         if ($ep->getParam('synchronize_yformemails')) {
