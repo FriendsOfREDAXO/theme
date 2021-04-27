@@ -1,7 +1,6 @@
 <?php
 /**
  * @author Daniel Weitenauer
- * @copyright (c) 2018 studio ahoi
  */
 
 class theme_util

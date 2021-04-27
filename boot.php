@@ -101,7 +101,9 @@ function theme_deactivate_developer_checkboxes(rex_extension_point $ep)
  * Add backend assets
  * EP: PACKAGES_INCLUDED
  *
+ * @internal
  * @param rex_extension_point $ep
+ * @return void
  */
 function theme_add_backend_assets(rex_extension_point $ep)
 {
