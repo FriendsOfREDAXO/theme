@@ -1,6 +1,7 @@
 theme_name = Theme
 theme_settings = Settings
 theme_info = Info
+theme_synchronize = Switch Developer base path to Theme folder (Please check Developer addon settings!)
 theme_synchronize_yformemails = Synchronies YForm: email templates
 theme_synchronize_templates = Synchronise templates
 theme_synchronize_modules = Synchronise modules

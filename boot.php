@@ -5,6 +5,8 @@
  * @var rex_addon $this
  */
 
+require_once('inc/functions.php');
+
 // Load theme languages
 rex_i18n::addDirectory(theme_path::lang());
 
@@ -39,24 +41,37 @@ if (rex::isBackend() && $this->getConfig('include_be_files')) {
 
 // Configure developer
 if (rex_addon::get('developer')->isAvailable()) {
-    // Add JS to deactivate developers synchronize checkboxes
-    rex_extension::register('PAGE_HEADER', 'theme_deactivate_developer_checkboxes', rex_extension::LATE, [
-        'addon' => $this,
-    ]);
-    // Register own theme paths
-    rex_extension::register('DEVELOPER_MANAGER_START', array('theme_manager', 'start'), rex_extension::NORMAL, [
-        'theme_folder' => $this->getProperty('theme_folder'),
-        'synchronize_actions' => $this->getConfig('synchronize_actions'),
-        'synchronize_modules' => $this->getConfig('synchronize_modules'),
-        'synchronize_templates' => $this->getConfig('synchronize_templates'),
-        'synchronize_yformemails' => $this->getConfig('synchronize_yformemails'),
-    ]);
+    // Register theme folder
+    if (theme_backwards_compatibility()) {
+        // Add JS to deactivate developers synchronize checkboxes
+        rex_extension::register('PAGE_HEADER', 'theme_deactivate_developer_checkboxes', rex_extension::LATE, [
+            'addon' => $this,
+        ]);
+
+        rex_extension::register('DEVELOPER_MANAGER_START', array('theme_manager', 'start'), rex_extension::NORMAL, [
+            'theme_folder' => $this->getProperty('theme_folder'),
+            'synchronize_actions' => $this->getConfig('synchronize_actions'),
+            'synchronize_modules' => $this->getConfig('synchronize_modules'),
+            'synchronize_templates' => $this->getConfig('synchronize_templates'),
+            'synchronize_yformemails' => $this->getConfig('synchronize_yformemails'),
+        ]);
+    } else {
+        theme_sync_config();
+
+        rex_extension::register('DEVELOPER_MANAGER_START', function (rex_extension_point $ep) {
+            $theme_folder = rex_addon::get('theme')->getProperty('theme_folder');
+            $theme_folder = rex_path::base($theme_folder.'/private/redaxo/');
+
+            rex_developer_manager::setBasePath($theme_folder);
+        }, rex_extension::NORMAL);
+    }
 }
 
 /**
  * Add JS to deactivate developers synchronize checkboxes
  * EP: PAGE_HEADER
  *
+ * @deprecated since version 1.3.0, will be removed in version 2.0.0.
  * @param rex_extension_point $ep
  * @return mixed|string
  */

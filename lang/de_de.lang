@@ -1,6 +1,7 @@
 theme_name = Theme
 theme_settings = Einstellungen
 theme_info = Info
+theme_synchronize = Developer-Basis-Pfad auf Theme-Ordner umstellen (Einstellungen des Developer AddOns beachten!)
 theme_synchronize_yformemails = YForm: E-Mail Templates synchronisieren
 theme_synchronize_templates = Templates synchronisieren
 theme_synchronize_modules = Module synchronisieren

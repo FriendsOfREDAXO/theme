@@ -5,6 +5,8 @@ supportpage: https://github.com/FriendsOfREDAXO/theme
 
 theme_folder: 'theme'
 
+force_backwards_compatibility: false
+
 page:
     title: translate:name
     perm: admin

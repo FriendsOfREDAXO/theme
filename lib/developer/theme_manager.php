@@ -2,9 +2,10 @@
 /**
  * Extend developer addon with own theme path
  *
+ * @deprecated since version 1.3.0, will be removed in version 2.0.0. Please use developer classes instead
+ *
  * @author Daniel Weitenauer
  */
-
 class theme_manager
 {
     public static function start(rex_extension_point $ep)

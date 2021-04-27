@@ -31,6 +31,7 @@ class theme_page_settings extends theme_abstract
     }
 
     /**
+     * @deprecated since version 1.3.0, will be removed in version 2.0.0.
      * @return string
      */
     public static function getForm()
@@ -55,6 +56,60 @@ class theme_page_settings extends theme_abstract
             $checkbox_elements[] = [
                 'label' => '<label for="theme-synchronize-yformemails">'.$addon->i18n('synchronize_yformemails').'</label>',
                 'field' => '<input type="checkbox" id="theme-synchronize-yformemails" name="config[synchronize_yformemails]" value="1" '.($addon->getConfig('synchronize_yformemails') ? ' checked="checked"' : '').' />'
+            ];
+        }
+        $checkbox_elements[] = [
+            'label' => '<label for="theme-include-be-files">'.$addon->i18n('include_be_files').'</label>',
+            'field' => '<input type="checkbox" id="theme-include-be-files" name="config[include_be_files]" value="1" '.($addon->getConfig('include_be_files') ? ' checked="checked"' : '').' />',
+        ];
+
+        $fragment = new rex_fragment();
+        $fragment->setVar('elements', $checkbox_elements, false);
+        $checkboxes = $fragment->parse('core/form/checkbox.php');
+
+        // Submit
+        $submit_elements = [];
+        $submit_elements[] = [
+            'field' => '<button class="btn btn-save rex-form-aligned" type="submit" name="submit" value="1" '.rex::getAccesskey($addon->i18n('submit'), 'save').'>'.$addon->i18n('save').'</button>',
+        ];
+
+        $fragment = new rex_fragment();
+        $fragment->setVar('flush', true);
+        $fragment->setVar('elements', $submit_elements, false);
+        $submit = $fragment->parse('core/form/submit.php');
+
+        // Options
+        $options = '
+            <div class="btn-group btn-group-xs">
+                <a href="'.rex_url::currentBackendPage().'&theme_install_folders=true" class="btn btn-default">'.rex_i18n::msg('theme_install_folders').'</a>
+            </div>
+        ';
+
+        // Form
+        $fragment = new rex_fragment();
+        $fragment->setVar('class', 'edit');
+        $fragment->setVar('title', $addon->i18n('settings'));
+        $fragment->setVar('options', $options, false);
+        $fragment->setVar('body', $checkboxes, false);
+        $fragment->setVar('buttons', $submit, false);
+        $form = $fragment->parse('core/page/section.php');
+
+        return $form;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getSettingsForm()
+    {
+        $addon = self::addon();
+
+        // Checkboxes
+        $checkbox_elements = [];
+        if (rex_addon::get('developer')->isAvailable()) {
+            $checkbox_elements[] = [
+                'label' => '<label for="theme-synchronize">'.$addon->i18n('synchronize').'</label>',
+                'field' => '<input type="checkbox" id="theme-synchronize" name="config[synchronize]" value="1" '.($addon->getConfig('synchronize') ? ' checked="checked"' : '').' />',
             ];
         }
         $checkbox_elements[] = [
