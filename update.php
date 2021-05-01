@@ -8,3 +8,11 @@
 require_once('inc/functions.php');
 
 theme_sync_config();
+
+/**
+ * Rename folder yform_emails to yform_email to ensure compatibility with developer addon
+ * @version 1.3.0
+ */
+if (file_exists(theme_path::base('private/redaxo/yform_emails'))) {
+    rename(theme_path::base('private/redaxo/yform_emails'), theme_path::base('private/redaxo/yform_email'));
+}
