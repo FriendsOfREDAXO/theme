@@ -40,7 +40,7 @@ if (rex::isBackend() && $this->getConfig('include_be_files')) {
 // Configure developer
 if (rex_addon::get('developer')->isAvailable()) {
     // Register theme folder
-    if (theme_util::isBackwardsCompatible()) {
+    if (theme_compat::isBackwardsCompatible()) {
         // Add JS to deactivate developers synchronize checkboxes
         rex_extension::register('PAGE_HEADER', 'theme_deactivate_developer_checkboxes', rex_extension::LATE, [
             'addon' => $this,
@@ -54,7 +54,7 @@ if (rex_addon::get('developer')->isAvailable()) {
             'synchronize_yformemails' => $this->getConfig('synchronize_yformemails'),
         ]);
     } else {
-        theme_util::syncConfig();
+        theme_compat::syncConfig();
 
         rex_extension::register('DEVELOPER_MANAGER_START', function (rex_extension_point $ep) {
             $theme_folder = rex_addon::get('theme')->getProperty('theme_folder');

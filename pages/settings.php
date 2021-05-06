@@ -11,7 +11,7 @@
 <?= theme_util::getFunctionsPhpMessage();?>
 
 <form action="<?=rex_url::currentBackendPage();?>" method="post">
-    <?php if (theme_util::isBackwardsCompatible()): ?>
+    <?php if (theme_compat::isBackwardsCompatible()): ?>
         <?= theme_page_settings::getForm(); ?>
     <?php else: ?>
         <?= theme_page_settings::getSettingsForm(); ?>

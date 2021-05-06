@@ -16,7 +16,7 @@ class theme_page_settings extends theme_abstract
 
         // Process form data
         if (rex_post('submit', 'boolean')) {
-            if (theme_util::isBackwardsCompatible()) {
+            if (theme_compat::isBackwardsCompatible()) {
                 $addon->setConfig(rex_post('config', [
                     ['include_be_files', 'bool'],
                     ['synchronize_actions', 'bool'],

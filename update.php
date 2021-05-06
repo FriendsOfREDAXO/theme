@@ -5,7 +5,7 @@
  * @author Daniel Weitenauer
  */
 
-theme_util::syncConfig();
+theme_compat::syncConfig();
 
 /**
  * Rename folder yform_emails to yform_email to ensure compatibility with developer addon
