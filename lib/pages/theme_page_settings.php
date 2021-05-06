@@ -16,13 +16,20 @@ class theme_page_settings extends theme_abstract
 
         // Process form data
         if (rex_post('submit', 'boolean')) {
-            $addon->setConfig(rex_post('config', [
-                ['include_be_files', 'bool'],
-                ['synchronize_actions', 'bool'],
-                ['synchronize_modules', 'bool'],
-                ['synchronize_templates', 'bool'],
-                ['synchronize_yformemails', 'bool'],
-            ]));
+            if (theme_util::isBackwardsCompatible()) {
+                $addon->setConfig(rex_post('config', [
+                    ['include_be_files', 'bool'],
+                    ['synchronize_actions', 'bool'],
+                    ['synchronize_modules', 'bool'],
+                    ['synchronize_templates', 'bool'],
+                    ['synchronize_yformemails', 'bool'],
+                ]));
+            } else {
+                $addon->setConfig(rex_post('config', [
+                    ['include_be_files', 'bool'],
+                    ['synchronize', 'bool'],
+                ]));
+            }
 
             $message = rex_view::success($addon->i18n('saved'));
         }
