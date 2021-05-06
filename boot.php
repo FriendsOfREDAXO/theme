@@ -5,8 +5,6 @@
  * @var rex_addon $this
  */
 
-require_once('inc/functions.php');
-
 // Load theme languages
 rex_i18n::addDirectory(theme_path::lang());
 
@@ -42,7 +40,7 @@ if (rex::isBackend() && $this->getConfig('include_be_files')) {
 // Configure developer
 if (rex_addon::get('developer')->isAvailable()) {
     // Register theme folder
-    if (theme_backwards_compatibility()) {
+    if (theme_util::isBackwardsCompatible()) {
         // Add JS to deactivate developers synchronize checkboxes
         rex_extension::register('PAGE_HEADER', 'theme_deactivate_developer_checkboxes', rex_extension::LATE, [
             'addon' => $this,
@@ -56,7 +54,7 @@ if (rex_addon::get('developer')->isAvailable()) {
             'synchronize_yformemails' => $this->getConfig('synchronize_yformemails'),
         ]);
     } else {
-        theme_sync_config();
+        theme_util::syncConfig();
 
         rex_extension::register('DEVELOPER_MANAGER_START', function (rex_extension_point $ep) {
             $theme_folder = rex_addon::get('theme')->getProperty('theme_folder');

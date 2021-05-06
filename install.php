@@ -4,11 +4,10 @@
  *
  * @var rex_addon $this
  */
-require_once('inc/functions.php');
 
 // Config
 if (!$this->hasConfig()) {
-    if (theme_backwards_compatibility()) {
+    if (theme_util::isBackwardsCompatible()) {
         $this->setConfig([
             'include_be_files' => false,
             'synchronize_actions' => false,
