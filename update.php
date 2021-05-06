@@ -5,6 +5,7 @@
  * @author Daniel Weitenauer
  */
 
+rex_autoload::addDirectory(__DIR__.'/lib');
 theme_compat::syncConfig();
 
 /**
