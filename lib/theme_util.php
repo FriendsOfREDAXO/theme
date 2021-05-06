@@ -5,10 +5,7 @@
  */
 class theme_util extends theme_abstract
 {
-    /**
-     * @return string
-     */
-    public static function getFunctionsPhpMessage()
+    public static function getFunctionsPhpMessage(): string
     {
         $return = '';
 

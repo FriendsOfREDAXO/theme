@@ -19,7 +19,7 @@ if (is_dir(theme_path::inc())) {
 }
 
 // Deprecated fallback warning
-rex_extension::register('PAGE_STRUCTURE_HEADER', function() {
+rex_extension::register('PAGE_STRUCTURE_HEADER', function () {
     return theme_util::getFunctionsPhpMessage();
 });
 

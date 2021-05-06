@@ -229,7 +229,7 @@ class theme_page_settings extends theme_abstract
             }
             if ($status) {
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/redaxo/yform_emails'));
-            }            
+            }
             if ($status) {
                 $status = rex_dir::create(rex_path::base($theme_folder.'/private/fragments'));
             }
