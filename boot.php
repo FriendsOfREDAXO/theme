@@ -57,10 +57,14 @@ if (rex_addon::get('developer')->isAvailable()) {
         theme_compat::syncConfig();
 
         rex_extension::register('DEVELOPER_MANAGER_START', function (rex_extension_point $ep) {
-            $theme_folder = rex_addon::get('theme')->getProperty('theme_folder');
-            $theme_folder = rex_path::base($theme_folder.'/private/redaxo/');
+            $addon = rex_addon::get('theme');
 
-            rex_developer_manager::setBasePath($theme_folder);
+            if ($addon->getConfig('synchronize')) {
+                $theme_folder = $addon->getProperty('theme_folder');
+                $theme_folder = rex_path::base($theme_folder.'/private/redaxo/');
+
+                rex_developer_manager::setBasePath($theme_folder);
+            }
         }, rex_extension::NORMAL);
     }
 }
