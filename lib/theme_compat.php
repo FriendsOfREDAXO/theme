@@ -8,7 +8,8 @@ class theme_compat extends theme_abstract
     public static function isBackwardsCompatible(): bool
     {
         return
-            rex_string::versionCompare(rex_addon::get('developer')->getVersion(), '3.6.0', '<') ||
+            (rex_addon::get('developer')->isAvailable() &&
+            rex_string::versionCompare(rex_addon::get('developer')->getVersion(), '3.6.0', '<')) ||
             self::addon()->getProperty('force_backwards_compatibility');
     }
 
