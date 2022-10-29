@@ -11,7 +11,9 @@ class theme_assets
     }
     use theme_assets_trait;
 
-    private static string $active_instance;
+    private static string $active_instance_id;
+
+    private string $id;
 
     private string $action = '';
 
@@ -32,17 +34,20 @@ class theme_assets
     public static function getInstance(string $key = 'default'): theme_assets
     {
         if ($key) {
-            self::$active_instance = $key;
-        } elseif (!isset(self::$active_instance)) {
+            self::$active_instance_id = $key;
+        } elseif (!isset(self::$active_instance_id)) {
             throw new rex_exception('ERROR: No instance set in '.static::class);
         }
 
-        return static::getInstanceTrait(self::$active_instance, static function () {
-            return new static();
+        return static::getInstanceTrait(self::$active_instance_id, static function () {
+            return new static(self::$active_instance_id);
         });
     }
 
-    protected function __construct() {}
+    protected function __construct(string $id)
+    {
+        $this->id = $id;
+    }
 
     public function setAction(string $action): theme_assets
     {
@@ -151,13 +156,14 @@ class theme_assets
         }
 
         $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_CSS', '', [
+            'id' => $this->id,
             'action' => $this->action,
             'data' => $this->css,
         ]));
 
         if (!$return) {
             foreach ($this->css as $css_key => $css) {
-                $return .= $this->getLinkTag($css_key, $css['data'], $css['attributes'], $this->cache_buster);
+                $return .= $this->getLinkTag($this->id.'--'.$css_key, $css['data'], $css['attributes'], $this->cache_buster);
             }
         }
 
@@ -171,6 +177,7 @@ class theme_assets
         }
 
         $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_CSS_INLINE', '', [
+            'id' => $this->id,
             'action' => $this->action,
             'data' => $this->css_inline,
         ]));
@@ -183,7 +190,7 @@ class theme_assets
         }
 
         foreach ($css_sets as $css_key => $css_set) {
-            $return .= '<style media='.$css_key.'>'.PHP_EOL.$css_set.PHP_EOL.'</style>'.PHP_EOL;
+            $return .= '<style media='.$this->id.'--'.$css_key.'>'.PHP_EOL.$css_set.PHP_EOL.'</style>'.PHP_EOL;
         }
 
         return $return;
@@ -198,13 +205,16 @@ class theme_assets
         }
 
         $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_JS', '', [
+            'id' => $this->id,
             'action' => $this->action,
             'data' => $data,
+            'cache_buster' => $this->cache_buster,
+            'header' => $header,
         ]));
 
         if (!$return) {
             foreach ($data as $file_key => $file) {
-                $return .= $this->getScriptTag($file_key, $file['data'], $file['attributes'], $this->cache_buster);
+                $return .= $this->getScriptTag($this->id.'--'.$file_key, $file['data'], $file['attributes'], $this->cache_buster);
             }
         }
 
@@ -220,13 +230,16 @@ class theme_assets
         }
 
         $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_JS_INLINE', '', [
+            'id' => $this->id,
             'action' => $this->action,
             'data' => $this->js_inline,
+            'cache_buster' => $this->cache_buster,
+            'header' => $header,
         ]));
 
         foreach ($data as $js_key => $js) {
             if (is_string($js)) {
-                $return .= ($this->isAdmin() ? '/* '.$js_key.' */ ' : '').$js.PHP_EOL;
+                $return .= ($this->isAdmin() ? '/* '.$this->id.'--'.$js_key.' */ ' : '').$js.PHP_EOL;
             }
         }
 
@@ -246,13 +259,14 @@ class theme_assets
         }
 
         $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_HTML', '', [
+            'id' => $this->id,
             'action' => $this->action,
             'data' => $data,
         ]));
 
         foreach ($data as $html_key => $html) {
             if (is_string($html)) {
-                $return .= ($this->isAdmin() ? '<!-- '.$html_key.' -->'.PHP_EOL : '').$html.PHP_EOL;
+                $return .= ($this->isAdmin() ? '<!-- '.$this->id.'--'.$html_key.' -->'.PHP_EOL : '').$html.PHP_EOL;
             }
         }
 
