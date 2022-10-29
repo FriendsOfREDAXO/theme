@@ -1,0 +1,261 @@
+<?php
+
+/**
+ * Asset handler
+ * @author Daniel Weitenauer
+ */
+class theme_assets
+{
+    use \rex_instance_pool_trait {
+        getInstance as getInstanceTrait;
+    }
+    use theme_assets_trait;
+
+    private static string $active_instance;
+
+    private string $action = '';
+
+    private string $cache_buster = '';
+
+    private array $css = [];
+
+    private array $css_inline = [];
+
+    private array $js = [];
+
+    private array $js_inline = [];
+
+    private array $html = [];
+
+    private array $attributes = [];
+
+    public static function getInstance(string $key = 'default'): theme_assets
+    {
+        if ($key) {
+            self::$active_instance = $key;
+        } elseif (!isset(self::$active_instance)) {
+            throw new rex_exception('ERROR: No instance set in '.static::class);
+        }
+
+        return static::getInstanceTrait(self::$active_instance, static function () {
+            return new static();
+        });
+    }
+
+    protected function __construct() {}
+
+    public function setAction(string $action): theme_assets
+    {
+        $this->action = $action;
+
+        return $this;
+    }
+
+    public function setCacheBuster(string $cache_buster): theme_assets
+    {
+        $this->cache_buster = $cache_buster;
+
+        return $this;
+    }
+
+    public function setCss(string $key, string $data, string $media = 'all', array $attributes = []): theme_assets
+    {
+        $attributes['media'] = $media;
+
+        $this->css[$key] = [
+            'data' => $data,
+            'attributes' => $attributes,
+        ];
+
+        return $this;
+    }
+
+    public function setCssInline(string $key, string $data, string $media = 'all'): theme_assets
+    {
+        $attributes['media'] = $media;
+
+        $this->css_inline[$key] = [
+            'data' => $data,
+            'attributes' => $attributes,
+        ];
+
+        return $this;
+    }
+
+    public function setJs(string $key, string $data, bool $header = false, array $attributes = []): theme_assets
+    {
+        $this->js[$header ? 'header' : 'footer'][$key] = [
+            'data' => $data,
+            'attributes' => $attributes,
+        ];
+
+        return $this;
+    }
+
+    public function setJsInline(string $key, string $data, bool $header = false, array $attributes = []): theme_assets
+    {
+        $this->js_inline[$header ? 'header' : 'footer'][$key] = [
+            'data' => $data,
+            'attributes' => $attributes,
+        ];
+
+        return $this;
+    }
+
+    public function setHtml(string $key, string $data, bool $header = false): theme_assets
+    {
+        $this->html[$header ? 'header' : 'footer'][$key] = $data;
+
+        return $this;
+    }
+
+    public function unsetCss(string $key): theme_assets
+    {
+        unset($this->css[$key]);
+
+        return $this;
+    }
+
+    public function unsetCssInline(string $key): theme_assets
+    {
+        unset($this->css_inline[$key]);
+
+        return $this;
+    }
+
+    public function unsetJs(string $key, bool $header = false): theme_assets
+    {
+        unset($this->js[$header ? 'header' : 'footer'][$key]);
+
+        return $this;
+    }
+
+    public function unsetJsInline(string $key, bool $header = false): theme_assets
+    {
+        unset($this->js_inline[$header ? 'header' : 'footer'][$key]);
+
+        return $this;
+    }
+
+    public function unsetHtml(string $key, bool $header = false): theme_assets
+    {
+        unset($this->js_inline[$header ? 'header' : 'footer'][$key]);
+
+        return $this;
+    }
+
+    public function getCss(): string
+    {
+        if (empty($this->css)) {
+            return '';
+        }
+
+        $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_CSS', '', [
+            'action' => $this->action,
+            'data' => $this->css,
+        ]));
+
+        if (!$return) {
+            foreach ($this->css as $css_key => $css) {
+                $return .= $this->getLinkTag($css_key, $css['data'], $css['attributes'], $this->cache_buster);
+            }
+        }
+
+        return $return;
+    }
+
+    public function getCssInline(): string
+    {
+        if (empty($this->css_inline)) {
+            return '';
+        }
+
+        $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_CSS_INLINE', '', [
+            'action' => $this->action,
+            'data' => $this->css_inline,
+        ]));
+
+        $css_sets = [];
+        foreach ($this->css_inline as $css_key => $css) {
+            if (is_string($css['data'])) {
+                $css_sets[$css['attributes']['media']] .= ($this->isAdmin() ? '/* '.$css_key.' */ ' : '').$css['data'].PHP_EOL;
+            }
+        }
+
+        foreach ($css_sets as $css_key => $css_set) {
+            $return .= '<style media='.$css_key.'>'.PHP_EOL.$css_set.PHP_EOL.'</style>'.PHP_EOL;
+        }
+
+        return $return;
+    }
+
+    public function getJs(bool $header = false): string
+    {
+        $data = $this->js[$header ? 'header' : 'footer'] ?? [];
+
+        if (empty($data)) {
+            return '';
+        }
+
+        $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_JS', '', [
+            'action' => $this->action,
+            'data' => $data,
+        ]));
+
+        if (!$return) {
+            foreach ($data as $file_key => $file) {
+                $return .= $this->getScriptTag($file_key, $file['data'], $file['attributes'], $this->cache_buster);
+            }
+        }
+
+        return $return;
+    }
+
+    public function getJsInline(bool $header = false): string
+    {
+        $data = $this->js_inline[$header ? 'header' : 'footer'] ?? [];
+
+        if (empty($data)) {
+            return '';
+        }
+
+        $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_JS_INLINE', '', [
+            'action' => $this->action,
+            'data' => $this->js_inline,
+        ]));
+
+        foreach ($data as $js_key => $js) {
+            if (is_string($js)) {
+                $return .= ($this->isAdmin() ? '/* '.$js_key.' */ ' : '').$js.PHP_EOL;
+            }
+        }
+
+        if ($return) {
+            $return = '<script>/*<![CDATA[*/'.PHP_EOL.$return.'/*]]>*/</script>'.PHP_EOL;
+        }
+
+        return $return;
+    }
+
+    public function getHtml(bool $header = false): string
+    {
+        $data = $this->html[$header ? 'header' : 'footer'] ?? [];
+
+        if (empty($data)) {
+            return '';
+        }
+
+        $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_HTML', '', [
+            'action' => $this->action,
+            'data' => $data,
+        ]));
+
+        foreach ($data as $html_key => $html) {
+            if (is_string($html)) {
+                $return .= ($this->isAdmin() ? '<!-- '.$html_key.' -->'.PHP_EOL : '').$html.PHP_EOL;
+            }
+        }
+
+        return $return;
+    }
+}
