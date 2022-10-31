@@ -83,7 +83,7 @@ trait theme_assets_trait
 
         if ($cache_buster === 'time') {
             $buster = 't='.time();
-        } elseif ($cache_buster === 'filedate') {
+        } elseif ($cache_buster === 'filetime') {
             $path = \rex_path::base(ltrim($filename, '/'));
             $buster = 'f='.filemtime($path);
         } else {
