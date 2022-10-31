@@ -24,7 +24,7 @@ class rex_var_theme_assets extends rex_var
                 break;
 
             // REX_THEME_ASSETS[id=instance type=css_inline]
-            case 'css_inline':
+            case 'cssinline':
                 $find = 'REX_AHOI_ASSETS_REPLACE_CSS_INLINE['.$id.']';
                 break;
 
@@ -38,7 +38,7 @@ class rex_var_theme_assets extends rex_var
                 break;
 
             // REX_THEME_ASSETS[id=instance type=js_inline header=0/1]
-            case 'js_inline':
+            case 'jsinline':
                 if ($header) {
                     $find = 'REX_AHOI_ASSETS_REPLACE_JS_HEADER_INLINE['.$id.']';
                 } else {
