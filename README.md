@@ -104,7 +104,7 @@ Eine Klasse zur URL-Generierung der Web-Assets einer Website, wie z.B. CSS-Style
 
 Es ist möglich, Assets über verschiedene Instanzen der Klasse zu gruppieren. Die Asset-Gruppen können entweder über Methoden der Klasse oder mithilfe einer eigenen [REX_VAR](#REX_VAR) an beliebiger Stelle im Quellcode der Website ausgegeben werden.
 
-**Wichtig:** einige Komfortfunktionen stehen nur bei Nutzung der REX_VARs zur Verfügung (siehe unten).
+_**Wichtig:** einige Komfortfunktionen stehen nur bei Nutzung der [REX_VAR](#REX_VAR) zur Verfügung._
 
 ```php
 // Erzeugt eine Instanz der Klasse. In der Regel genügt eine Instanz zur Verwaltung aller Assets einer Website.
@@ -243,7 +243,7 @@ REX_THEME_ASSETS[id=instanz type=typ header=1]
 
 
 ## Minify
-Es wird das Addon __FriendsOfREDAXO/minify__ unterstützt.
+Es wird das Addon __FriendsOfREDAXO/minify__ zur Minifizierung der Dateien unterstützt.
 ```php
 // Aktiviert die Unterstützung des Addons Minify.
 // Es werden automatisch die Dateien einer Instanz gruppiert und minifiziert. 
