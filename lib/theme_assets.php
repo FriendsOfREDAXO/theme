@@ -232,19 +232,20 @@ class theme_assets
         $return = rex_extension::registerPoint(new rex_extension_point('THEME_ASSETS_JS_INLINE', '', [
             'id' => $this->id,
             'action' => $this->action,
-            'data' => $this->js_inline,
+            'data' => $data,
             'cache_buster' => $this->cache_buster,
             'header' => $header,
         ]));
 
-        foreach ($data as $js_key => $js) {
-            if (is_string($js)) {
-                $return .= ($this->isAdmin() ? '/* '.$this->id.'--'.$js_key.' */ ' : '').$js.PHP_EOL;
-            }
-        }
+        if (!$return) {
+            foreach ($data as $js_key => $js) {
+                $attributes = $js['attributes'];
+                if ($this->isAdmin()) {
+                    $attributes['class'] = (isset($attributes['class']) ? $attributes['class'].' ' : '').'script--'.$js_key;
+                }
 
-        if ($return) {
-            $return = '<script>/*<![CDATA[*/'.PHP_EOL.$return.'/*]]>*/</script>'.PHP_EOL;
+                $return .= '<script'.rex_string::buildAttributes($attributes).'>/*<![CDATA[*/'.PHP_EOL.$js['data'].'/*]]>*/</script>'.PHP_EOL;
+            }
         }
 
         return $return;
