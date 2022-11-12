@@ -379,7 +379,7 @@ theme_assets::getInstance()
     ->setJs('scripts-sub', theme_url::assets('scripts/sub.js'))
     ->setCss('styles', theme_url::assets('styles/main.css'));
 ```
-### Modul
+#### Modul
 - der Eintrag `styles-module` wird ergänzt
 - der Eintrag `scripts-sub` wird überschrieben
 - der Eintrag `jquery` wird gelöscht, der Eintrag
