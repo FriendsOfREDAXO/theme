@@ -1,8 +1,8 @@
 # Theme
-Redaxo 5 Addon zum Verwalten aller Projektdateien für Frontend und Backend.
+Redaxo 5 AddOn zum Verwalten aller Projektdateien für Frontend und Backend.
 
 ## Ordner
-Nach der Installation kann auf der Seite Einstellungen des Theme-Addons mit Klick auf den Button __Theme-Ordner installieren__ eine Ordnerstruktur erstellt werden. 
+Nach der Installation kann auf der Seite Einstellungen des Theme-AddOns mit Klick auf den Button __Theme-Ordner installieren__ eine Ordnerstruktur erstellt werden. 
 Die Ordnerstruktur wird auf der Ebene des Ordners __redaxo__ im Ordner __theme__ erstellt.
 
 Der Ordner `theme` enthält zwei Ordner: `public` und `private`: 
@@ -11,21 +11,21 @@ Der Ordner `theme` enthält zwei Ordner: `public` und `private`:
 
 Die weiteren Unterordner sind ein Vorschlag zur Strukturierung der Projektdateien. Jede andere Variante ist auch möglich. 
 
-Die vorgegebene Struktur hat den Vorteil, dass diese Ordner über [__PHP-Methoden__](#PHP-Methoden) ansprechbar sind, bzw. wie die entsprechenden Ordner eines Addons automatisch eingebunden werden:
+Die vorgegebene Struktur hat den Vorteil, dass diese Ordner über [__PHP-Methoden__](#PHP-Methoden) ansprechbar sind, bzw. wie die entsprechenden Ordner eines AddOns automatisch eingebunden werden:
 * Alle im Ordner `lib` enthaltenen PHP-Klassen werden automatisch über __autoload__ eingebunden.
 * Alle im Ordner `lang` enthaltenen Dateien mit der Endung `.lang` werden automatisch über __i18n__ eingebunden.
-* Alle Dateien mit der Endung `.php` im Ordner `inc` werden per `include_once` in der `boot.php` des Addons eingebunden.
+* Alle Dateien mit der Endung `.php` im Ordner `inc` werden per `include_once` in der `boot.php` des AddOns eingebunden.
 * Der Ordner `fragments` wird über `rex_fragment::addDirectory` eingebunden.
 * Der Ordner `ytemplates` wird über `rex_yform::addTemplatePath` eingebunden, wenn __YForm__ installiert ist.
-* Der Ordner `redaxo` ist ein Platzhalter für die Synchronisierungsdaten des Addons [__Developer__](#Developer).
+* Der Ordner `redaxo` ist ein Platzhalter für die Synchronisierungsdaten des AddOns [__Developer__](#Developer).
 
 ## Dateien
-Neben der `.htaccess` werden weitere Dateien erstellt, die - sofern sie nicht gelöscht wurden - vom Addon automatisch eingebunden werden:
-* `backend.css` und `backend.js` werden auf jeder Seite des Redaxo-Backends geladen. So können auf einfache Weise zusätzliche Scripte, Stile oder Webfonts für das Backend eingebunden werden. Diese Funktion kann in den Einstellungen des Theme-Addons aktiviert oder deaktiviert werden.
+Neben der `.htaccess` werden weitere Dateien erstellt, die - sofern sie nicht gelöscht wurden - vom AddOn automatisch eingebunden werden:
+* `backend.css` und `backend.js` werden auf jeder Seite des Redaxo-Backends geladen. So können auf einfache Weise zusätzliche Scripte, Stile oder Webfonts für das Backend eingebunden werden. Diese Funktion kann in den Einstellungen des Theme-AddOns aktiviert oder deaktiviert werden.
 * `functions.php` wird im Ordner `inc` angelegt *(siehe oben)* und dient nur als schnelle Starthilfe. Sie kann auch umbenannt, gelöscht oder durch andere Dateien ersetzt werden.
 
 ## Developer
-Wenn das Addon __Developer__ installiert ist, gibt es die zusätzliche Option, die Synchronisierung der Templates, Module, Actions und YForm-E-Mail-Templates in den Theme-Ordner umzuleiten. Die Synchronisierung in den Data-Ordner wird dadurch deaktiviert. 
+Wenn das AddOn __Developer__ installiert ist, gibt es die zusätzliche Option, die Synchronisierung der Templates, Module, Actions und YForm-E-Mail-Templates in den Theme-Ordner umzuleiten. Die Synchronisierung in den Data-Ordner wird dadurch deaktiviert. 
 
 ## PHP-Methoden
 ### Pfade / URL
@@ -109,9 +109,10 @@ _**Wichtig:** einige Komfortfunktionen stehen nur bei Nutzung der [REX_VAR](#REX
 ```php
 // Erzeugt eine Instanz der Klasse. In der Regel genügt eine Instanz zur Verwaltung aller Assets einer Website.
 // Bei Bedarf kann durch die Angabe von $id zwischen verschiedenen Instanzen unterschieden werden. 
-// $id die Angabe ist optional. Ist $id nicht angegeben, wird die Kennung 'default' verwendet.
-$assets = theme_assets::get($id);
+// - $id die Angabe ist optional. Ist $id nicht angegeben, wird die Kennung 'default' verwendet.
+$assets = theme_assets::getInstance($id);
 ```
+
 ##### Cache-Buster
 Der Cache-Buster hilft, das Browser-Caching einer Website zu beeinflussen. Es handelt sich dabei um einen String, der an die URL einer Asset-Datei angehängt wird.
 ```php
@@ -137,6 +138,7 @@ $assets->setCacheBuster('1.0.0')
 // 4. Cache-Buster löschen
 $assets->setCacheBuster('')
 ```
+
 ##### CSS-Daten
 Es können sowohl URLs von CSS-Dateien übergeben werden, als auch Inline-Styles.
 ```php
@@ -162,11 +164,14 @@ $assets->unsetCss($id);
 $assets->unsetCssInline($id);
 
 // Gibt die gesammelten CSS-Dateien der Instanz als <link>-Tags aus
+// HINWEIS: im Normalfall ist es komfortabler die REX_VAR REX_THEME_ASSETS[] zu nutzen
 echo $assets->getCss();
 
 // Gibt die gesammelten CSS-Daten der Instanz als <link>-Tags aus
+// HINWEIS: im Normalfall ist es komfortabler die REX_VAR REX_THEME_ASSETS[] zu nutzen
 echo $assets->getCssInline();
 ```
+
 ##### JavaScript-Daten
 Es können sowohl URLs von JavaScript-Dateien übergeben werden, als auch Inline-Skripte.
 ```php
@@ -193,13 +198,16 @@ $assets->unsetJs($id);
 $assets->unsetJsInline($id);
 
 // Gibt die gesammelten JavaScript-Dateien der Instanz zurück
+// HINWEIS: im Normalfall ist es komfortabler die REX_VAR REX_THEME_ASSETS[] zu nutzen
 // - $header (bool) Flag zur Ausgabe im Header. true gibt die zum Header zugeordneten Daten aus, false die zum Footer zugeordneten
 echo $assets->getJs($header);
 
 // Gibt die gesammelten JavaScript-Daten der Instanz zurück
+// HINWEIS: im Normalfall ist es komfortabler die REX_VAR REX_THEME_ASSETS[] zu nutzen
 // - $header (bool) Flag zur Ausgabe im Header. true gibt die zum Header zugeordneten Daten aus, false die zum Footer zugeordneten
 echo $assets->getJsInline($header);
 ```
+
 ##### HTML-Daten
 Es können HTML-Strings übergeben werden.
 ```php
@@ -213,6 +221,7 @@ $assets->setHtml($id, $data, $header);
 $assets->unsetHtml($id);
 
 // Gibt die HTML-Daten der Instanz zurück
+// HINWEIS: im Normalfall ist es komfortabler die REX_VAR REX_THEME_ASSETS[] zu nutzen
 // - $header (bool) Flag zur Ausgabe im Header. true gibt die Datei im Header aus, false im Footer
 echo $assets->getHtml($header);
 ```
@@ -228,12 +237,12 @@ Die Klasse `theme_assets` bietet mehrere __Extension Points__ zur Beeinflussung 
 Über sie kann z.B. die [Minifizierung der Asset-Dateien](#Minify) umgesetzt werden.
 
 
-## REX_VAR
-Die REX_VAR können statt der Getter-Methoden von `theme_assets` innerhalb von Templates und Modulen verwendet werden.
+## REX_VAR REX_THEME_ASSETS[]
+REX_THEME_ASSETS[] kann statt der Getter-Methoden von `theme_assets` innerhalb von Templates und Modulen verwendet werden.
 
-Sie haben gegenüber den Methoden der Klasse den Vorteil, dass sie das rückwirkende Einschleusen von Daten in Header und Footer erlauben.
+Sie hat gegenüber den Klassenmethoden den Vorteil, dass sie das rückwirkende Einschleusen von Daten in Header und Footer erlauben.
 
-Damit ist es z.B. möglich, in Modulen Assets anzugeben, die im HTML-Header eines Templates eingebunden werden. Dafür wird der Extension-Point `OUTPUT_FILTER` genutzt.
+So ist es z.B. möglich, in Modulen Assets anzugeben, die im HTML-Header eines Templates eingebunden werden. Dafür wird intern der Extension-Point `OUTPUT_FILTER` genutzt.
 ```php
 // - "id" die Kennung der Instanz, wie bei theme_assets::get() angegeben
 // - "type" der Typ der Ausgabe. Er entspricht den Methodennamen, also css, cssinline, js, jsinline oder html
@@ -242,13 +251,21 @@ REX_THEME_ASSETS[id=instanz type=typ header=1]
 ```
 
 
-## Minify
-Es wird das Addon __FriendsOfREDAXO/minify__ zur Minifizierung der Dateien unterstützt.
+## FriendsOfREDAXO/minify
+Das AddOn __FriendsOfREDAXO/minify__ zur Minifizierung von CSS- und JavaScript-Dateien wird unterstützt.
 ```php
-// Aktiviert die Unterstützung des Addons Minify.
+// Aktiviert die Unterstützung des AddOns FriendsOfREDAXO/minify.
 // Es werden automatisch die Dateien einer Instanz gruppiert und minifiziert. 
 // Muss vor theme_assets aufgerufen werden. Am besten am Anfang der Datei functions.php platzieren. 
 theme_minify::init();
+
+// Nach der Aktivierung stehen diese Aktionen zur Verfügung:
+// CSS und JavaScript minifizieren
+theme_assets::getInstance()->setAction(`minify`);
+// Nur CSS und minifizieren
+theme_assets::getInstance()->setAction(`minify_css`);
+// Nur JavaScript minifizieren
+theme_assets::getInstance()->setAction(`minify_js`);
 ```
 
 
@@ -379,7 +396,7 @@ theme_assets::getInstance()
     ->setJs('scripts-sub', theme_url::assets('scripts/sub.js'))
     ->setCss('styles', theme_url::assets('styles/main.css'));
 ```
-### Modul
+#### Modul
 - der Eintrag `styles-module` wird ergänzt
 - der Eintrag `scripts-sub` wird überschrieben
 - der Eintrag `jquery` wird gelöscht, der Eintrag
