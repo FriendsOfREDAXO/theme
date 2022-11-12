@@ -250,3 +250,175 @@ Es wird das Addon __FriendsOfREDAXO/minify__ zur Minifizierung der Dateien unter
 // Muss vor theme_assets aufgerufen werden. Am besten am Anfang der Datei functions.php platzieren. 
 theme_minify::init();
 ```
+
+
+## Beispiele
+### Beispiel 1: eine Instanz
+#### functions.php
+```php
+theme_assets::getInstance()
+    // Styles
+    ->setCss('styles', theme_url::assets('styles/main.css'))
+    // JavaScript im Header
+    ->setJs('jquery', theme_url::assets('vendor/jquery/jquery.min.js'), true)
+    ->setJsInline('inline', 'alert("Dies ist ein Beispiel!");', true)
+    // JavaScript im Footer
+    ->setJs('demo', theme_url::assets('vendor/demo/scripts/demo.js'))
+    ->setJs('scripts', theme_url::assets('scripts/main.js'));
+```
+#### Template
+Die Ausgabe richtet sich nach der Position der REX_VARs.
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        ...
+        REX_THEME_ASSETS[type=css]
+        REX_THEME_ASSETS[type=js header=1]
+        REX_THEME_ASSETS[type=js_inline header=1]
+    </head>
+    <body>
+        ...
+        REX_THEME_ASSETS[type=js]
+    </body>
+</html>
+```
+#### HTML
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        ...
+        <link media="all" href="/theme/public/assets/styles/main.css" rel="stylesheet" type="text/css" />
+        <script src="/theme/public/assets/vendor/jquery/jquery.min.js"></script>
+        <script data-key="script--matomo">/*<![CDATA[*/
+            alert("Dies ist ein Beispiel!");
+        /*]]>*/</script>
+    </head>
+    <body>
+        ...
+        <script src="/theme/public/assets/vendor/demo/scripts/demo.js"></script>
+        <script src="/theme/public/assets/scripts/main.js"></script>
+    </body>
+</html>
+```
+
+### Beispiel 2: mehrere Instanzen
+#### functions.php
+```php
+theme_assets::getInstance('libraries')
+    ->setJs('jquery', theme_url::assets('vendor/jquery/jquery.min.js'), true)
+    ->setJs('demo', theme_url::assets('vendor/demo/scripts/demo.js'));
+    
+theme_assets::getInstance('inline')->setJsInline('inline', 'alert("Dies ist ein Beispiel!");', true);
+    
+theme_assets::getInstance()
+    ->setCss('styles', theme_url::assets('styles/main.css'))
+    ->setJs('scripts', theme_url::assets('scripts/main.js'));
+```
+#### Template
+Die Ausgabe richtet sich nach der Position der REX_VARs. 
+Einige REX_VARs sind leer.
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        ...
+        <!--Instanz "libraries"-->
+        REX_THEME_ASSETS[id=libraries type=css]
+        REX_THEME_ASSETS[id=libraries type=js header=1]
+        <!--Instanz "default"-->
+        REX_THEME_ASSETS[type=css]
+        REX_THEME_ASSETS[type=js header=1]
+        <!--Instanz "inline"-->
+        REX_THEME_ASSETS[id=inline type=css_inline]
+        REX_THEME_ASSETS[id=inline type=js_inline header=1]
+    </head>
+    <body>
+        ...
+        <!--Instanz "libraries"-->
+        REX_THEME_ASSETS[id=libraries type=js]
+        <!--Instanz "default"-->
+        REX_THEME_ASSETS[type=js]
+    </body>
+</html>
+```
+#### HTML
+Die leeren REX_VARs werden übersprungen.
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        ...
+        <!--Instanz "libraries"-->
+        <script src="/theme/public/assets/vendor/jquery/jquery.min.js"></script>
+        <!--Instanz "default"-->
+        <link media="all" href="/theme/public/assets/styles/main.css" rel="stylesheet" type="text/css" />
+        <!--Instanz "inline"-->
+        <script data-key="script--matomo">/*<![CDATA[*/
+            alert("Dies ist ein Beispiel!");
+        /*]]>*/</script>
+    </head>
+    <body>
+        ...
+        <!--Instanz "libraries"-->
+        <script src="/theme/public/assets/vendor/demo/scripts/demo.js"></script>
+        <!--Instanz "default"-->
+        <script src="/theme/public/assets/scripts/main.js"></script>
+    </body>
+</html>
+```
+
+### Beispiel 3: Varianten
+Einträge können ergänzt, überschrieben oder gelöscht werden.
+#### functions.php
+```php
+theme_assets::getInstance()
+    ->setJs('jquery', theme_url::assets('vendor/jquery/jquery.min.js'), true)
+    ->setJs('scripts-main', theme_url::assets('scripts/main.js'))
+    ->setJs('scripts-sub', theme_url::assets('scripts/sub.js'))
+    ->setCss('styles', theme_url::assets('styles/main.css'));
+```
+### Modul
+- der Eintrag `styles-module` wird ergänzt
+- der Eintrag `scripts-sub` wird überschrieben
+- der Eintrag `jquery` wird gelöscht, der Eintrag
+```php
+theme_assets::getInstance()
+    ->setCss('styles-module', theme_url::assets('styles/module.css'))
+    ->setJs('scripts-sub', theme_url::assets('scripts/module.js'))
+    ->unset('jquery', true);
+```
+#### Template
+Die Ausgabe richtet sich nach der Position der REX_VARs.
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        ...
+        REX_THEME_ASSETS[type=css]
+        REX_THEME_ASSETS[type=js header=1]
+        REX_THEME_ASSETS[type=js_inline header=1]
+    </head>
+    <body>
+        ...
+        REX_THEME_ASSETS[type=js]
+    </body>
+</html>
+```
+#### HTML
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        ...
+        <link media="all" href="/theme/public/assets/styles/main.css" rel="stylesheet" type="text/css" />
+        <link media="all" href="/theme/public/assets/styles/module.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        ...
+        <script src="/theme/public/assets/scripts/main.js"></script>
+        <script src="/theme/public/assets/scripts/module.js"></script>
+    </body>
+</html>
+```
