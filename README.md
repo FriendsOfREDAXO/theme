@@ -245,10 +245,18 @@ REX_THEME_ASSETS[id=instanz type=typ header=1]
 ## Minify
 Es wird das Addon __FriendsOfREDAXO/minify__ zur Minifizierung der Dateien unterstützt.
 ```php
-// Aktiviert die Unterstützung des Addons Minify.
+// Aktiviert die Unterstützung des Addons FriendsOfREDAXO/minify.
 // Es werden automatisch die Dateien einer Instanz gruppiert und minifiziert. 
 // Muss vor theme_assets aufgerufen werden. Am besten am Anfang der Datei functions.php platzieren. 
 theme_minify::init();
+
+// Nach der Aktivierung stehen diese Aktionen zur Verfügung:
+// CSS und JavaScript minifizieren
+theme_assets::getInstance()->setAction(`minify`);
+// Nur CSS und minifizieren
+theme_assets::getInstance()->setAction(`minify_css`);
+// Nur JavaScript minifizieren
+theme_assets::getInstance()->setAction(`minify_js`);
 ```
 
 
