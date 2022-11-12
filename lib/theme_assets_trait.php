@@ -68,10 +68,10 @@ trait theme_assets_trait
      * Builds a cache buster string
      *
      * @param string $filename File name
-     * @param string $cache_buster Cache buster type available types are
-     *        - "time": Appends the current system time: "filename?t=1600000000". Forces a server load on every page request. Use in development only.
-     *        - "filedate": Appends the files' update date: "filename?f=1600000000". Forces a server load if the file was changed.
-     *        - Custom string (e.g. "1.0.0"): Appends a custom string to the "filename?v=1.0.0"
+     * @param string $cache_buster Cache buster type
+     *    - "time": Appends the current system time: "filename?t=1600000000". Forces a server load on every page request. Use in development only.
+     *    - "filedate": Appends the files' update date: "filename?f=1600000000". Forces a server load if the file was changed.
+     *    - Custom string (e.g. "1.0.0"): Appends a custom string to the "filename?v=1.0.0". Forces a server load if the string was changed.
      *
      * @return string
      */
