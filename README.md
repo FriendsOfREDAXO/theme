@@ -308,7 +308,7 @@ Die Ausgabe richtet sich nach der Position der REX_VARs.
         ...
         <link media="all" href="/theme/public/assets/styles/main.css" rel="stylesheet" type="text/css" />
         <script src="/theme/public/assets/vendor/jquery/jquery.min.js"></script>
-        <script data-key="script--matomo">/*<![CDATA[*/
+        <script>/*<![CDATA[*/
             alert("Dies ist ein Beispiel!");
         /*]]>*/</script>
     </head>
@@ -372,7 +372,7 @@ Die leeren REX_VARs werden übersprungen.
         <!--Instanz "default"-->
         <link media="all" href="/theme/public/assets/styles/main.css" rel="stylesheet" type="text/css" />
         <!--Instanz "inline"-->
-        <script data-key="script--matomo">/*<![CDATA[*/
+        <script>/*<![CDATA[*/
             alert("Dies ist ein Beispiel!");
         /*]]>*/</script>
     </head>
