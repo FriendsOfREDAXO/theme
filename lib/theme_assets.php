@@ -267,7 +267,7 @@ class theme_assets
 
         foreach ($data as $html_key => $html) {
             if (is_string($html)) {
-                $return .= ($this->isAdmin() ? '<!-- '.$this->id.'--'.$html_key.' -->'.PHP_EOL : '').$html.PHP_EOL;
+                $return .= ($this->isAdmin() ? '<!-- html--'.$this->id.'--'.$html_key.' -->'.PHP_EOL : '').$html.PHP_EOL;
             }
         }
 
