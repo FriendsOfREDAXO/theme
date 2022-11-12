@@ -20,7 +20,7 @@ trait theme_assets_trait
     private function getScriptTag(string $key, string $file, array $attributes, string $cache_buster = ''): string
     {
         if ($this->isAdmin()) {
-            $attributes['class'] = (isset($attributes['class']) ? $attributes['class'].' ' : '').'script--'.$key;
+            $attributes['data-key'] = 'script--'.$key;
         }
 
         $attributes['src'] = $this->stripDots($file).$this->getCacheBuster($file, $cache_buster);
@@ -41,7 +41,7 @@ trait theme_assets_trait
     private function getLinkTag(string $key, string $file, array $attributes, string $cache_buster = ''): string
     {
         if ($this->isAdmin()) {
-            $attributes['class'] = (isset($attributes['class']) ? $attributes['class'].' ' : '').'style--'.$key;
+            $attributes['data-key'] = 'style--'.$key;
         }
 
         $attributes['href'] = $this->stripDots($file).$this->getCacheBuster($file, $cache_buster);

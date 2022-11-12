@@ -241,7 +241,7 @@ class theme_assets
             foreach ($data as $js_key => $js) {
                 $attributes = $js['attributes'];
                 if ($this->isAdmin()) {
-                    $attributes['class'] = (isset($attributes['class']) ? $attributes['class'].' ' : '').'script--'.$js_key;
+                    $attributes['data-key'] = 'script--'.$js_key;
                 }
 
                 $return .= '<script'.rex_string::buildAttributes($attributes).'>/*<![CDATA[*/'.PHP_EOL.$js['data'].'/*]]>*/</script>'.PHP_EOL;
