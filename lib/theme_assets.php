@@ -184,8 +184,14 @@ class theme_assets
 
         $css_sets = [];
         foreach ($this->css_inline as $css_key => $css) {
-            if (is_string($css['data'])) {
-                $css_sets[$css['attributes']['media']] .= ($this->isAdmin() ? '/* '.$css_key.' */ ' : '').$css['data'].PHP_EOL;
+            $data = $css['data'];
+            $media = $css['attributes']['media'];
+
+            if (is_string($data)) {
+                if (!isset($css_sets[$media])) {
+                    $css_sets[$media] = '';
+                }
+                $css_sets[$media] .= ($this->isAdmin() ? '/* '.$css_key.' */ ' : '').$data.PHP_EOL;
             }
         }
 
