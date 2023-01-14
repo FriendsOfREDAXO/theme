@@ -191,7 +191,7 @@ class theme_assets
                 if (!isset($css_sets[$media])) {
                     $css_sets[$media] = '';
                 }
-                $css_sets[$media] .= ($this->isAdmin() ? '/* '.$css_key.' */ ' : '').PHP_EOL.$data.PHP_EOL;
+                $css_sets[$media] .= ($this->isAdmin() ? '/* '.$css_key.' */ '.PHP_EOL : '').$data.PHP_EOL;
             }
         }
 
@@ -200,7 +200,7 @@ class theme_assets
             if ($this->isAdmin()) {
                 $attributes['data-key'] = 'style--'.$this->id;
             }
-            $return .= '<style'.rex_string::buildAttributes($attributes).'>'.PHP_EOL.$css_set.PHP_EOL.'</style>'.PHP_EOL;
+            $return .= '<style'.rex_string::buildAttributes($attributes).'>'.PHP_EOL.$css_set.'</style>'.PHP_EOL;
         }
 
         return $return;
