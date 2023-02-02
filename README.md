@@ -91,7 +91,7 @@ theme_setting::setKey($key, [
 // Die Arrays werden über array_merge() zusammengeführt. 
 // Ist ein Schlüssel in beiden Arrays vorhanden, wird der des Default-Arrays 
 // mit denen des ausgelesenen Arrays überschrieben.
-theme_setting::getKey($key, [
+$data = theme_setting::getKey($key, [
     'index1' => 'data1', 
     'index2' => 'data2', 
     ...
