@@ -100,7 +100,9 @@ $data = theme_setting::getKey($key, [
 
 ### Assets
 #### theme_assets
-Eine Klasse zur URL-Generierung der Web-Assets einer Website, wie z.B. CSS-Stylesheets, JavaScript-Dateien.
+Eine Klasse zum Verwalten und Einbinden der CSS-Stylesheets und JavaScript-Dateien einer Website zur Laufzeit.
+
+##### Anwendung
 
 Es ist möglich, Assets über verschiedene Instanzen der Klasse zu gruppieren. Die Asset-Gruppen können entweder über Methoden der Klasse oder mithilfe einer eigenen [REX_VAR](#REX_VAR) an beliebiger Stelle im Quellcode der Website ausgegeben werden.
 
@@ -109,29 +111,33 @@ _**Wichtig:** einige Komfortfunktionen stehen nur bei Nutzung der [REX_VAR](#REX
 ```php
 // Erzeugt eine Instanz der Klasse. In der Regel genügt eine Instanz zur Verwaltung aller Assets einer Website.
 // Bei Bedarf kann durch die Angabe von $id zwischen verschiedenen Instanzen unterschieden werden. 
-// - $id die Angabe ist optional. Ist $id nicht angegeben, wird die Kennung 'default' verwendet.
+// - $id (string) optional, ist $id nicht angegeben, wird 'default' verwendet.
 $assets = theme_assets::getInstance($id);
+
+// Beispiele
+$assets = theme_assets::getInstance(); // Verwenden der Instanz 'default'
+
+$assets = theme_assets::getInstance('assets'); // Verwenden der Instanz 'assets'
 ```
 
 ##### Cache-Buster
-Der Cache-Buster hilft, das Browser-Caching einer Website zu beeinflussen. Es handelt sich dabei um einen String, der an die URL einer Asset-Datei angehängt wird.
-```php
-// Der Cache-Buster wird stets für die gesamte Instanz gesetzt.
-// Es gibt mehrere Optionen zur Auswahl:
+Der Cache-Buster hilft, das Browser-Caching einer Website zu beeinflussen. Es handelt sich dabei um einen String, der als Query an die URL einer Asset-Datei angehängt wird.
 
+_**Wichtig:** Der Cache-Buster wird für eine komplette Instanz gesetzt._
+```php
 // 1. Aktuelle Systemzeit
-// Hiermit wird die Asset-Datei bei jedem Ladevorgang neu vom Server geholt.
+// Damit wird die Asset-Datei bei jedem Ladevorgang neu vom Server geholt.
 // Der Dateiname wird um die Zeichenfolge '?t=XXXXXXXXXX' ergänzt. XXXXXXXXXX entspricht dabei dem Timestamp der aktuellen Systemzeit.
 // ACHTUNG: Diese Einstellung ist nur während Entwicklung und Debugging sinnvoll.
 $assets->setCacheBuster('time')
 
 // 2. Änderungsdatum einer Datei
-// Hiermit wird die Datei automatisch einmal neu vom Server geladen, wenn sie geändert wurde. 
+// Damit wird die Datei neu vom Server geladen, wenn sie geändert wurde. 
 // Der Dateiname wird um die Zeichenfolge '?f=XXXXXXXXXX' ergänzt. XXXXXXXXXX entspricht dabei dem Timestamp des Änderungsdatums der Datei.
 $assets->setCacheBuster('filetime')
 
 // 3. individueller String 
-// Hiermit ist z.B. eine manuelle Versionierung der Assets möglich. 
+// Damit ist eine manuelle Versionierung der Assets möglich. 
 // Der Dateiname wird um die Zeichenfolge '?v=XXXXXXXXXX' ergänzt. XXXXXXXXXX entspricht dabei dem angegebenen String.
 $assets->setCacheBuster('1.0.0')
 
@@ -140,7 +146,7 @@ $assets->setCacheBuster('')
 ```
 
 ##### CSS-Daten
-Es können sowohl URLs von CSS-Dateien übergeben werden, als auch Inline-Styles.
+Es können sowohl URL von CSS-Dateien übergeben werden, als auch Inline-Styles.
 ```php
 // Setzt die URL einer Datei
 // - $id (string) ein String zur Kennung der Datei
@@ -173,56 +179,59 @@ echo $assets->getCssInline();
 ```
 
 ##### JavaScript-Daten
-Es können sowohl URLs von JavaScript-Dateien übergeben werden, als auch Inline-Skripte.
+Es können sowohl URL von JavaScript-Dateien übergeben werden, als auch Inline-Skripte.
 ```php
 // Setzt die URL einer Datei
 // - $id (string) ein String zur Kennung der Datei
 // - $data (string) die URL der Datei. Hierfür kann auch theme_url verwendet werden
-// - $header (bool) Flag zur Ausgabe im Header. true gibt die Datei im Header aus, false im Footer
+// - $header (bool) Flag zur Ausgabe im Header. true gibt die Datei im Header aus, false im Footer, optional - default ist false
 // - $attributes (array) ein Array mit zusätzlichen Attributen, im Format ['Attribut' => 'Wert'], optional
 $assets->setJs($id, $data, $header, $attributes);
 
 // Setzt einen JavaScript-String
 // - $id (string) ein String zur Kennung der Daten
 // - $data (string) der JavaScript-String. Der String wird innerhalb von <script>-Tags ausgegeben 
-// - $header (bool) Flag zur Ausgabe im Header. true gibt die Datei im Header aus, false im Footer
+// - $header (bool) Flag zur Ausgabe im Header. true gibt die Datei im Header aus, false im Footer, optional - default ist false
 // - $attributes (array) ein Array mit zusätzlichen Attributen, im Format ['Attribut' => 'Wert'], optional
 $assets->setJsInline($id, $data, $header, $attributes);
 
 // Löscht die URL einer Datei
 // - $id (string) eine zuvor gesetzte Kennung der Datei
-$assets->unsetJs($id);
+// - $header (bool) Flag zur Ausgabe im Header. true entfernt die Datei im Header, false im Footer, optional - default ist false
+$assets->unsetJs($id, $header);
 
 // Löscht einen JavaScript-String
 // - $id (string) eine zuvor gesetzte Kennung der Daten
-$assets->unsetJsInline($id);
+// - $header (bool) Flag zur Ausgabe im Header. true entfernt die Daten im Header, false im Footer, optional - default ist false
+$assets->unsetJsInline($id, $header);
 
 // Gibt die gesammelten JavaScript-Dateien der Instanz zurück
 // HINWEIS: im Normalfall ist es komfortabler die REX_VAR REX_THEME_ASSETS[] zu nutzen
-// - $header (bool) Flag zur Ausgabe im Header. true gibt die zum Header zugeordneten Daten aus, false die zum Footer zugeordneten
+// - $header (bool) Flag zur Ausgabe im Header. true gibt die zum Header zugeordneten Daten aus, false die zum Footer zugeordneten, optional - default ist false
 echo $assets->getJs($header);
 
 // Gibt die gesammelten JavaScript-Daten der Instanz zurück
 // HINWEIS: im Normalfall ist es komfortabler die REX_VAR REX_THEME_ASSETS[] zu nutzen
-// - $header (bool) Flag zur Ausgabe im Header. true gibt die zum Header zugeordneten Daten aus, false die zum Footer zugeordneten
+// - $header (bool) Flag zur Ausgabe im Header. true gibt die zum Header zugeordneten Daten aus, false die zum Footer zugeordneten, optional - default ist false
 echo $assets->getJsInline($header);
 ```
 
 ##### HTML-Daten
-Es können HTML-Strings übergeben werden.
+Es können HTML-Strings übergeben werden. Nützlich, um z.B. zusätzliche Meta-Tags zu setzen
 ```php
 // - $id (string) ein String zur Kennung der Daten
-// - $data der HTML-String. Der String wird unverändert ausgegeben 
-// - $header (bool) Flag zur Ausgabe im Header. true gibt die Datei im Header aus, false im Footer
+// - $data der HTML-String. Der String wird unverändert ausgegeben.  
+// - $header (bool) Flag zur Ausgabe im Header. true gibt die Datei im Header aus, false im Footer, optional - default ist false
 $assets->setHtml($id, $data, $header);
 
 // Löscht einen HTMl-String
 // - $id (string) eine zuvor gesetzte Kennung der Daten
-$assets->unsetHtml($id);
+// - $header (bool) Flag zur Ausgabe im Header. true entfernt die Datei im Header, false im Footer, optional - default ist false
+$assets->unsetHtml($id, $header);
 
 // Gibt die HTML-Daten der Instanz zurück
 // HINWEIS: im Normalfall ist es komfortabler die REX_VAR REX_THEME_ASSETS[] zu nutzen
-// - $header (bool) Flag zur Ausgabe im Header. true gibt die Datei im Header aus, false im Footer
+// - $header (bool) Flag zur Ausgabe im Header. true gibt die Datei im Header aus, false im Footer, optional - default ist false
 echo $assets->getHtml($header);
 ```
 
@@ -236,36 +245,49 @@ Die Klasse `theme_assets` bietet mehrere __Extension Points__ zur Beeinflussung 
 
 Über sie kann z.B. die [Minifizierung der Asset-Dateien](#Minify) umgesetzt werden.
 
+#### Steuerung der Extensions
+```php
+// Es ist möglich pro Instanz eine Aktion zu definieren, die an die __Extension Points__ übergeben wird.   
+$assets->setAction($action);
+```
+
 
 ## REX_VAR REX_THEME_ASSETS[]
 REX_THEME_ASSETS[] kann statt der Getter-Methoden von `theme_assets` innerhalb von Templates und Modulen verwendet werden.
 
-Sie hat gegenüber den Klassenmethoden den Vorteil, dass sie das rückwirkende Einschleusen von Daten in Header und Footer erlauben.
-
+Sie hat gegenüber den Klassenmethoden den Vorteil, dass sie das Einschleusen von Daten in Header und Footer erleichtern.
 So ist es z.B. möglich, in Modulen Assets anzugeben, die im HTML-Header eines Templates eingebunden werden. Dafür wird intern der Extension-Point `OUTPUT_FILTER` genutzt.
 ```php
-// - "id" die Kennung der Instanz, wie bei theme_assets::get() angegeben
-// - "type" der Typ der Ausgabe. Er entspricht den Methodennamen, also css, cssinline, js, jsinline oder html
-// - "header" Flag für die Header- oder Footer-Gruppe. 1 für Header, 0 für Footer
+// - "id" die Kennung der Instanz, wie bei theme_assets::getInstance() angegeben, optional - default ist 'default'
+// - "type" der Typ der Ausgabe. Er entspricht den Methodennamen in Kleinbuchstaben, also: 'css', 'cssinline', 'js', 'jsinline' oder 'html'
+// - "header" Flag für die Header- oder Footer-Gruppe. 1 für Header, 0 für Footer, optional - default ist 0
 REX_THEME_ASSETS[id=instanz type=typ header=1]
+
+// Beispiele
+REX_THEME_ASSETS[type=js] // JavaScript der Instanz 'default' im Footer ausgeben
+
+REX_THEME_ASSETS[id=assets type=js header=1] // JavaScript der Instanz 'assets' im Header ausgeben
+
+REX_THEME_ASSETS[id=assets type=css] // CSS der Instanz 'assets' ausgeben
 ```
 
 
 ## FriendsOfREDAXO/minify
-Das AddOn __FriendsOfREDAXO/minify__ zur Minifizierung von CSS- und JavaScript-Dateien wird unterstützt.
+Das AddOn __FriendsOfREDAXO/minify__ zur Minifizierung von CSS- und JavaScript-Dateien wird über eine zusätzliche Klasse unterstützt.
 ```php
 // Aktiviert die Unterstützung des AddOns FriendsOfREDAXO/minify.
 // Es werden automatisch die Dateien einer Instanz gruppiert und minifiziert. 
-// Muss vor theme_assets aufgerufen werden. Am besten am Anfang der Datei functions.php platzieren. 
+// Muss vor theme_assets::getInstance() aufgerufen werden. Am besten am Anfang der Datei functions.php platzieren. 
 theme_minify::init();
 
+$assets = theme_assets::getInstance();
 // Nach der Aktivierung stehen diese Aktionen zur Verfügung:
 // CSS und JavaScript minifizieren
-theme_assets::getInstance()->setAction(`minify`);
+$assets->setAction(`minify`);
 // Nur CSS und minifizieren
-theme_assets::getInstance()->setAction(`minify_css`);
+$assets->setAction(`minify_css`);
 // Nur JavaScript minifizieren
-theme_assets::getInstance()->setAction(`minify_js`);
+$assets->setAction(`minify_js`);
 ```
 
 
@@ -335,7 +357,7 @@ theme_assets::getInstance()
 ```
 #### Template
 Die Ausgabe richtet sich nach der Position der REX_VARs. 
-Einige REX_VARs sind leer.
+Einige REX_VARs finden keine Werte.
 ```html
 <!DOCTYPE html>
 <html>
@@ -361,7 +383,7 @@ Einige REX_VARs sind leer.
 </html>
 ```
 #### HTML
-Die leeren REX_VARs werden übersprungen.
+Leere REX_VARs werden übersprungen und erzeugen keine Ausgabe.
 ```html
 <!DOCTYPE html>
 <html>
@@ -399,7 +421,7 @@ theme_assets::getInstance()
 #### Modul
 - der Eintrag `styles-module` wird ergänzt
 - der Eintrag `scripts-sub` wird überschrieben
-- der Eintrag `jquery` wird gelöscht, der Eintrag
+- der Eintrag `jquery` wird gelöscht
 ```php
 theme_assets::getInstance()
     ->setCss('styles-module', theme_url::assets('styles/module.css'))
