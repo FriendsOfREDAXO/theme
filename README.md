@@ -314,7 +314,7 @@ Die Ausgabe richtet sich nach der Position der REX_VARs.
         ...
         REX_THEME_ASSETS[type=css]
         REX_THEME_ASSETS[type=js header=1]
-        REX_THEME_ASSETS[type=js_inline header=1]
+        REX_THEME_ASSETS[type=jsinline header=1]
     </head>
     <body>
         ...
@@ -370,8 +370,8 @@ Einige REX_VARs finden keine Werte.
         REX_THEME_ASSETS[type=css]
         REX_THEME_ASSETS[type=js header=1]
         <!--Instanz "inline"-->
-        REX_THEME_ASSETS[id=inline type=css_inline]
-        REX_THEME_ASSETS[id=inline type=js_inline header=1]
+        REX_THEME_ASSETS[id=inline type=cssinline]
+        REX_THEME_ASSETS[id=inline type=jsinline header=1]
     </head>
     <body>
         ...
@@ -437,7 +437,7 @@ Die Ausgabe richtet sich nach der Position der REX_VARs.
         ...
         REX_THEME_ASSETS[type=css]
         REX_THEME_ASSETS[type=js header=1]
-        REX_THEME_ASSETS[type=js_inline header=1]
+        REX_THEME_ASSETS[type=jsinline header=1]
     </head>
     <body>
         ...
